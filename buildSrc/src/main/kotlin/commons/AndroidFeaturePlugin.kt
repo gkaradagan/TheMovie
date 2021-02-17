@@ -9,7 +9,7 @@ import org.gradle.kotlin.dsl.dependencies
 import addLifecycleDependencies
 import addHilt
 import addTestDependencies
-import org.gradle.kotlin.dsl.project
+import ModuleDependency
 
 class AndroidFeaturePlugin : Plugin<Project> {
     override fun apply(project: Project) {
@@ -19,7 +19,8 @@ class AndroidFeaturePlugin : Plugin<Project> {
         project.plugins.apply(GradlePluginId.HILT)
         project.configureAndroidLibrary()
         project.dependencies {
-            implementation(project(":library:core"))
+            implementation(project(ModuleDependency.CORE))
+            implementation(project(ModuleDependency.NAVIGATION))
 
             implementation(LibraryDependency.KOTLIN_STDLIB)
             implementation(LibraryDependency.ANDROIDX_CORE_KTX)

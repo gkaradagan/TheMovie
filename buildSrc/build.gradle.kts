@@ -27,6 +27,7 @@ object PluginVersions {
     const val KTLINT = "9.4.1"
     const val JACOCO = "0.16.0"
     const val BEN_MANES = "0.36.0"
+    const val QUADRANT = "1.4"
 }
 
 dependencies {
@@ -37,6 +38,7 @@ dependencies {
     implementation("com.diffplug.spotless:spotless-plugin-gradle:${PluginVersions.SPOTLESS}")
     implementation("com.vanniktech:gradle-android-junit-jacoco-plugin:${PluginVersions.JACOCO}")
     implementation("com.github.ben-manes:gradle-versions-plugin:${PluginVersions.BEN_MANES}")
+    implementation("gradle.plugin.com.gaelmarhic:quadrant:${PluginVersions.QUADRANT}")
 
     /* Depend on the default Gradle API's since we want to build a custom plugin */
     implementation(gradleApi())

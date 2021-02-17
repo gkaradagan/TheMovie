@@ -1,3 +1,5 @@
 package com.gorkem.dashboard.presentation
 
-class DashboardActivity
+import android.app.Activity
+
+class DashboardActivity : Activity()

@@ -5,6 +5,8 @@ import kotlin.reflect.full.memberProperties
 object ModuleDependency {
     // All consts are accessed via reflection
     const val APP = ":app"
+    const val CORE = ":library:core"
+    const val NAVIGATION = ":library:navigation"
 
     // False positive" function can be private"
     // See: https://youtrack.jetbrains.com/issue/KT-33610

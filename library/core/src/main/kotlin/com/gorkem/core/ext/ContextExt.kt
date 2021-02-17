@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("detekt.TooManyFunctions")
+@file:Suppress("detekt.TooManyFunctions", "EXTENSION_SHADOWED_BY_MEMBER")
 
 package com.gorkem.core.ext
 
