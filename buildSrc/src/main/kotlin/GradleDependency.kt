@@ -6,6 +6,7 @@ object GradlePluginId {
     const val KOTLIN = "kotlin"
     const val HILT = "dagger.hilt.android.plugin"
     const val QUADRANT = "com.gaelmarhic.quadrant"
+    const val SAFE_ARGS = "androidx.navigation.safeargs.kotlin"
 
     const val COMMON_ANDROID_LIBRARY = "common-android-library"
     const val COMMON_FEATURE_LIBRARY = "common-feature-library"

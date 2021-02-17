@@ -20,9 +20,8 @@ object Versions {
     const val ANDROIDX_CONSTRAINTLAYOUT = "2.0.4"
     const val ANDROIDX_RECYCLERVIEW = "1.1.0"
     const val ANDROIDX_VIEWPAGER2 = "1.0.0"
-
-    //DataStore
-    const val DATASTORE = "1.0.0-alpha05"
+    // When you change it, you should change ANDROIDX_NAVIGATION_COMPONENT on buildSrc build.gradle.kts
+    const val ANDROIDX_NAVIGATION_COMPONENT = "2.3.3"
 
     //Lifecycle
     const val LIFECYCLE = "2.3.0"
@@ -54,7 +53,6 @@ object Versions {
 
     //LeakCanary
     const val LEAK_CANARY = "2.5"
-
 
     //Test
     const val ANDROIDX_TEST = "1.3.0"

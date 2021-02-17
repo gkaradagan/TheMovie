@@ -10,6 +10,7 @@ import addLifecycleDependencies
 import addHilt
 import addTestDependencies
 import ModuleDependency
+import addNavigationComponent
 
 class AndroidFeaturePlugin : Plugin<Project> {
     override fun apply(project: Project) {
@@ -30,7 +31,13 @@ class AndroidFeaturePlugin : Plugin<Project> {
             implementation(LibraryDependency.TIMBER)
             implementation(LibraryDependency.COROUTINES)
 
+            implementation(LibraryDependency.ANDROIDX_CONSTRAINTLAYOUT)
+            implementation(LibraryDependency.ANDROIDX_RECYCLERVIEW)
+            implementation(LibraryDependency.ANDROIDX_VIEWPAGER2)
+
             addLifecycleDependencies()
+
+            addNavigationComponent()
 
             addHilt()
 

@@ -16,4 +16,5 @@
 plugins {
   id(GradlePluginId.COMMON_ANDROID_LIBRARY)
   id(GradlePluginId.QUADRANT)
+  id(GradlePluginId.SAFE_ARGS)
 }

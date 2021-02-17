@@ -23,10 +23,10 @@ object LibraryDependency {
         "androidx.recyclerview:recyclerview:${Versions.ANDROIDX_RECYCLERVIEW}"
     const val ANDROIDX_VIEWPAGER2 =
         "androidx.viewpager2:viewpager2:${Versions.ANDROIDX_VIEWPAGER2}"
-
-    //DataStore
-    const val DATASTORE =
-        "androidx.datastore:datastore:${Versions.DATASTORE}"
+    const val ANDROIDX_NAVIGATION_FRAGMENT =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.ANDROIDX_NAVIGATION_COMPONENT}"
+    const val ANDROIDX_NAVIGATION_UI =
+        "androidx.navigation:navigation-ui-ktx:${Versions.ANDROIDX_NAVIGATION_COMPONENT}"
 
     //ViewModel
     const val ANDROIDX_VIEW_MODEL =
@@ -109,9 +109,13 @@ object TestDependencies {
         "androidx.test.espresso:espresso-core:${Versions.ANDROIDX_ESPRESSO_CORE}"
     const val ANDROIDX_ESPRESSO_IDLING =
         "androidx.test.espresso:espresso-idling-resource:${Versions.ANDROIDX_ESPRESSO_CORE}"
-    const val ANDROIDX_ESPRESSO_INTENTANDROIDX_ESPRESSO_INTENT =
+    const val ANDROIDX_ESPRESSO_INTENT =
         "androidx.test.espresso:espresso-intents:${Versions.ANDROIDX_ESPRESSO_CORE}"
 
+    //Navigation Component
+    const val ANDROIDX_NAVIGATION_TESTING =
+        "androidx.navigation:navigation-testing:${Versions.ANDROIDX_NAVIGATION_COMPONENT}"
+    
     //OkHttp Mock WebServer
     const val OKHTTP_MOCK_WEB_SERVER = "com.squareup.okhttp3:mockwebserver:${Versions.OKHTTP}"
 
@@ -152,7 +156,8 @@ fun DependencyHandler.addAndroidTestDependencies() {
     androidTestImplementation(TestDependencies.ROOM_TESTING)
     androidTestImplementation(TestDependencies.ANDROIDX_ESPRESSO_CORE)
     androidTestImplementation(TestDependencies.ANDROIDX_ESPRESSO_IDLING)
-    androidTestImplementation(TestDependencies.ANDROIDX_ESPRESSO_INTENTANDROIDX_ESPRESSO_INTENT)
+    androidTestImplementation(TestDependencies.ANDROIDX_ESPRESSO_INTENT)
+    androidTestImplementation(TestDependencies.ANDROIDX_NAVIGATION_TESTING)
     androidTestImplementation(TestDependencies.HILT)
     kaptAndroidTest(TestDependencies.KAPT_TEST_HILT)
 }
@@ -160,6 +165,11 @@ fun DependencyHandler.addAndroidTestDependencies() {
 fun DependencyHandler.addHilt() {
     implementation(LibraryDependency.HILT)
     kapt(LibraryDependency.KAPT_HILT)
+}
+
+fun DependencyHandler.addNavigationComponent() {
+    implementation(LibraryDependency.ANDROIDX_NAVIGATION_FRAGMENT)
+    implementation(LibraryDependency.ANDROIDX_NAVIGATION_UI)
 }
 
 fun DependencyHandler.addRoomDependencies() {

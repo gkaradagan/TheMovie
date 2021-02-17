@@ -27,50 +27,50 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 abstract class BaseActivity<STATE : ViewState,
-        INTENT : ViewIntent,
-        EFFECT : ViewEffect,
-        BINDING : ViewBinding,
-        VM : BaseViewModel<STATE, INTENT, EFFECT>> :
-    AppCompatActivity() {
+  INTENT : ViewIntent,
+  EFFECT : ViewEffect,
+  BINDING : ViewBinding,
+  VM : BaseViewModel<STATE, INTENT, EFFECT>> :
+  AppCompatActivity() {
 
-    private var uiStateJob: Job? = null
+  private var uiStateJob: Job? = null
 
-    lateinit var binding: BINDING
+  lateinit var binding: BINDING
 
-    val viewModel: VM by lazy { viewModel() }
+  val viewModel: VM by lazy { viewModel() }
 
-    abstract fun viewModel(): VM
+  abstract fun viewModel(): VM
 
-    abstract fun getViewBinding(): BINDING
+  abstract fun getViewBinding(): BINDING
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = getViewBinding()
-        setContentView(binding.root)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    binding = getViewBinding()
+    setContentView(binding.root)
+  }
+
+  override fun onStart() {
+    super.onStart()
+    // Start collecting when the View is visible
+    // https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#livedata
+    uiStateJob = lifecycleScope.launch {
+      viewModel.state.collect { state ->
+        renderUI(state)
+      }
+
+      viewModel.effect.collect { effect ->
+        handleEffect(effect)
+      }
     }
+  }
 
-    override fun onStart() {
-        super.onStart()
-        // Start collecting when the View is visible
-        // https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#livedata
-        uiStateJob = lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                renderUI(state)
-            }
+  abstract fun renderUI(state: STATE)
 
-            viewModel.effect.collect { effect ->
-                handleEffect(effect)
-            }
-        }
-    }
+  abstract fun handleEffect(effect: EFFECT)
 
-    abstract fun renderUI(state: STATE)
-
-    abstract fun handleEffect(effect: EFFECT)
-
-    override fun onStop() {
-        // Stop collecting when the View goes to the background
-        uiStateJob?.cancel()
-        super.onStop()
-    }
+  override fun onStop() {
+    // Stop collecting when the View goes to the background
+    uiStateJob?.cancel()
+    super.onStop()
+  }
 }
