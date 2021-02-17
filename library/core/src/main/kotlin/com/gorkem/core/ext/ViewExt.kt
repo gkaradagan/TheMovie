@@ -27,6 +27,10 @@ import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
@@ -332,3 +336,12 @@ class DebounceOnClickListener(
 
 fun View.setOnClickListener(debounceInterval: Long, listenerBlock: (View) -> Unit) =
   setOnClickListener(DebounceOnClickListener(debounceInterval, listenerBlock))
+
+@ExperimentalCoroutinesApi
+fun View.clicks(): Flow<Unit> = callbackFlow {
+  val listener = View.OnClickListener { offer(Unit) }
+  setOnClickListener(listener)
+  awaitClose {
+    setOnClickListener(null)
+  }
+}
