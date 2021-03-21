@@ -94,4 +94,6 @@ dependencies {
   addHilt()
 
   addTestDependencies()
+
+  debugImplementation(LibraryDependency.LEAK_CANARY)
 }
