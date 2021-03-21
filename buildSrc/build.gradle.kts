@@ -17,16 +17,16 @@ kotlinDslPluginOptions {
 
 object PluginVersions {
     // When you change it, you should change GRADLE_VERSION on Versions
-    const val GRADLE_VERSION = "4.1.2"
+    const val GRADLE_VERSION = "4.1.3"
 
     // When you change it, you should change KOTLIN_VERSION on Versions
-    const val KOTLIN_VERSION = "1.4.20"
+    const val KOTLIN_VERSION = "1.4.31"
 
     // When you change it, you should change ANDROIDX_NAVIGATION_COMPONENT_VERSION on Versions
     const val ANDROIDX_NAVIGATION_COMPONENT = "2.3.3"
 
     const val SPOTLESS = "5.8.2"
-    const val DETEKT = "1.15.0-RC1"
+    const val DETEKT = "1.16.0"
     const val KTLINT = "9.4.1"
     const val JACOCO = "0.16.0"
     const val BEN_MANES = "0.36.0"
