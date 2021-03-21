@@ -95,10 +95,6 @@ dependencies {
     implementation(project(ModuleDependency.FEATURE_SERIES))
     implementation(project(ModuleDependency.FEATURE_FAVOURITE))
 
-   /* for (feature in getAllFeatureModules()) {
-        implementation(project(feature))
-    }*/
-
     implementation(LibraryDependency.KOTLIN_STDLIB)
     implementation(LibraryDependency.ANDROIDX_CORE_KTX)
     implementation(LibraryDependency.ANDROIDX_APPCOMPAT)
