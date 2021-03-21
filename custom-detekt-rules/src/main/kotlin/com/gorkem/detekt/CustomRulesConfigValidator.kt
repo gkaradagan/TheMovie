@@ -21,24 +21,24 @@ import io.gitlab.arturbosch.detekt.api.Notification
 
 class CustomRulesConfigValidator : ConfigValidator {
 
-  override fun validate(config: Config): Collection<Notification> {
-    val result = mutableListOf<Notification>()
-    runCatching {
-      config.subConfig("detekt-custom-rules")
-        .subConfig("RepositoryPackage")
-        .valueOrNull<Boolean>("active")
+    override fun validate(config: Config): Collection<Notification> {
+        val result = mutableListOf<Notification>()
+        runCatching {
+            config.subConfig("detekt-custom-rules")
+                .subConfig("RepositoryPackage")
+                .valueOrNull<Boolean>("active")
 
-      config.subConfig("detekt-custom-rules")
-        .subConfig("ViewModelName")
-        .valueOrNull<Boolean>("active")
-    }.onFailure {
-      result.add(SampleMessage("'active' property must be of type boolean."))
+            config.subConfig("detekt-custom-rules")
+                .subConfig("ViewModelName")
+                .valueOrNull<Boolean>("active")
+        }.onFailure {
+            result.add(SampleMessage("'active' property must be of type boolean."))
+        }
+        return result
     }
-    return result
-  }
 }
 
 class SampleMessage(
-  override val message: String,
-  override val level: Notification.Level = Notification.Level.Error
+    override val message: String,
+    override val level: Notification.Level = Notification.Level.Error
 ) : Notification

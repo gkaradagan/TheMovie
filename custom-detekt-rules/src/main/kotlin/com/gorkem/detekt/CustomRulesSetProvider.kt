@@ -20,13 +20,13 @@ import io.gitlab.arturbosch.detekt.api.RuleSet
 import io.gitlab.arturbosch.detekt.api.RuleSetProvider
 
 class CustomRulesSetProvider : RuleSetProvider {
-  override val ruleSetId: String = "detekt-custom-rules"
+    override val ruleSetId: String = "detekt-custom-rules"
 
-  override fun instance(config: Config) = RuleSet(
-    ruleSetId,
-    listOf(
-      ViewModelName(config),
-      RepositoryPackage(config)
+    override fun instance(config: Config) = RuleSet(
+        ruleSetId,
+        listOf(
+            ViewModelName(config),
+            RepositoryPackage(config)
+        )
     )
-  )
 }

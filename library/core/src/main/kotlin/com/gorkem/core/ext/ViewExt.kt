@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("detekt.TooManyFunctions")
+@file:Suppress("detekt.TooManyFunctions", "detekt.MagicNumber")
 
 package com.gorkem.core.ext
 
@@ -43,9 +43,9 @@ fun View.getString(stringResId: Int): String = resources.getString(stringResId)
  * Extension method to show a keyboard for View.
  */
 fun View.showKeyboard() {
-  val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-  this.requestFocus()
-  imm.showSoftInput(this, 0)
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    this.requestFocus()
+    imm.showSoftInput(this, 0)
 }
 
 /**
@@ -53,13 +53,13 @@ fun View.showKeyboard() {
  * https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
  */
 fun View.hideKeyboard(): Boolean {
-  try {
-    val inputMethodManager =
-      context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    return inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
-  } catch (ignored: RuntimeException) {
-  }
-  return false
+    try {
+        val inputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        return inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+    } catch (ignored: RuntimeException) {
+    }
+    return false
 }
 
 /**
@@ -70,16 +70,16 @@ fun View.hideKeyboard(): Boolean {
  * @see <a href="https://antonioleiva.com/kotlin-ongloballayoutlistener/>Kotlin recipes: OnGlobalLayoutListener</a>
  */
 inline fun <T : View> T.afterMeasured(crossinline f: T.() -> Unit) {
-  viewTreeObserver.addOnGlobalLayoutListener(
-    object : OnGlobalLayoutListener {
-      override fun onGlobalLayout() {
-        if (measuredWidth > 0 && measuredHeight > 0) {
-          viewTreeObserver.removeOnGlobalLayoutListener(this)
-          f()
+    viewTreeObserver.addOnGlobalLayoutListener(
+        object : OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                if (measuredWidth > 0 && measuredHeight > 0) {
+                    viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    f()
+                }
+            }
         }
-      }
-    }
-  )
+    )
 }
 
 /**
@@ -87,12 +87,12 @@ inline fun <T : View> T.afterMeasured(crossinline f: T.() -> Unit) {
  *
  */
 fun View.updatePadding(
-  paddingStart: Int = getPaddingStart(),
-  paddingTop: Int = getPaddingTop(),
-  paddingEnd: Int = getPaddingEnd(),
-  paddingBottom: Int = getPaddingBottom()
+    paddingStart: Int = getPaddingStart(),
+    paddingTop: Int = getPaddingTop(),
+    paddingEnd: Int = getPaddingEnd(),
+    paddingBottom: Int = getPaddingBottom(),
 ) {
-  setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom)
+    setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom)
 }
 
 /**
@@ -109,31 +109,31 @@ fun View.setPaddingRight(value: Int) = setPadding(paddingLeft, paddingTop, value
  * Extension method to set View's top padding.
  */
 fun View.setPaddingTop(value: Int) =
-  setPaddingRelative(paddingStart, value, paddingEnd, paddingBottom)
+    setPaddingRelative(paddingStart, value, paddingEnd, paddingBottom)
 
 /**
  * Extension method to set View's bottom padding.
  */
 fun View.setPaddingBottom(value: Int) =
-  setPaddingRelative(paddingStart, paddingTop, paddingEnd, value)
+    setPaddingRelative(paddingStart, paddingTop, paddingEnd, value)
 
 /**
  * Extension method to set View's start padding.
  */
 fun View.setPaddingStart(value: Int) =
-  setPaddingRelative(value, paddingTop, paddingEnd, paddingBottom)
+    setPaddingRelative(value, paddingTop, paddingEnd, paddingBottom)
 
 /**
  * Extension method to set View's end padding.
  */
 fun View.setPaddingEnd(value: Int) =
-  setPaddingRelative(paddingStart, paddingTop, value, paddingBottom)
+    setPaddingRelative(paddingStart, paddingTop, value, paddingBottom)
 
 /**
  * Extension method to set View's horizontal padding.
  */
 fun View.setPaddingHorizontal(value: Int) =
-  setPaddingRelative(value, paddingTop, value, paddingBottom)
+    setPaddingRelative(value, paddingTop, value, paddingBottom)
 
 /**
  * Extension method to set View's vertical padding.
@@ -144,44 +144,44 @@ fun View.setPaddingVertical(value: Int) = setPaddingRelative(paddingStart, value
  * Extension method to set View's height.
  */
 fun View.setHeight(value: Int) {
-  val lp = layoutParams
-  lp?.let {
-    lp.height = value
-    layoutParams = lp
-  }
+    val lp = layoutParams
+    lp?.let {
+        lp.height = value
+        layoutParams = lp
+    }
 }
 
 /**
  * Extension method to set View's width.
  */
 fun View.setWidth(value: Int) {
-  val lp = layoutParams
-  lp?.let {
-    lp.width = value
-    layoutParams = lp
-  }
+    val lp = layoutParams
+    lp?.let {
+        lp.width = value
+        layoutParams = lp
+    }
 }
 
 /**
  * Extension method to resize View with height & width.
  */
 fun View.resize(width: Int, height: Int) {
-  val lp = layoutParams
-  lp?.let {
-    lp.width = width
-    lp.height = height
-    layoutParams = lp
-  }
+    val lp = layoutParams
+    lp?.let {
+        lp.width = width
+        lp.height = height
+        layoutParams = lp
+    }
 }
 
 /**
  * Show the view  (visibility = View.VISIBLE)
  */
 fun View.show(): View {
-  if (visibility != View.VISIBLE) {
-    visibility = View.VISIBLE
-  }
-  return this
+    if (visibility != View.VISIBLE) {
+        visibility = View.VISIBLE
+    }
+    return this
 }
 
 /**
@@ -189,20 +189,20 @@ fun View.show(): View {
  * (visibility = View.VISIBLE)
  */
 inline fun View.showIf(condition: () -> Boolean): View {
-  if (visibility != View.VISIBLE && condition()) {
-    visibility = View.VISIBLE
-  }
-  return this
+    if (visibility != View.VISIBLE && condition()) {
+        visibility = View.VISIBLE
+    }
+    return this
 }
 
 /**
  * Hide the view. (visibility = View.INVISIBLE)
  */
 fun View.hide(): View {
-  if (visibility != View.INVISIBLE) {
-    visibility = View.INVISIBLE
-  }
-  return this
+    if (visibility != View.INVISIBLE) {
+        visibility = View.INVISIBLE
+    }
+    return this
 }
 
 /**
@@ -210,20 +210,20 @@ fun View.hide(): View {
  * (visibility = View.INVISIBLE)
  */
 inline fun View.hideIf(condition: () -> Boolean): View {
-  if (visibility != View.INVISIBLE && condition()) {
-    visibility = View.INVISIBLE
-  }
-  return this
+    if (visibility != View.INVISIBLE && condition()) {
+        visibility = View.INVISIBLE
+    }
+    return this
 }
 
 /**
  * Remove the view (visibility = View.GONE)
  */
 fun View.remove(): View {
-  if (visibility != View.GONE) {
-    visibility = View.GONE
-  }
-  return this
+    if (visibility != View.GONE) {
+        visibility = View.GONE
+    }
+    return this
 }
 
 /**
@@ -231,117 +231,117 @@ fun View.remove(): View {
  * (visibility = View.GONE)
  */
 inline fun View.removeIf(condition: () -> Boolean): View {
-  if (visibility != View.GONE && condition()) {
-    visibility = View.GONE
-  }
-  return this
+    if (visibility != View.GONE && condition()) {
+        visibility = View.GONE
+    }
+    return this
 }
 
 /**
  * Toggle a view's visibility
  */
 fun View.toggleVisibility(): View {
-  visibility = if (visibility == View.VISIBLE) {
-    View.INVISIBLE
-  } else {
-    View.INVISIBLE
-  }
-  return this
+    visibility = if (visibility == View.VISIBLE) {
+        View.INVISIBLE
+    } else {
+        View.INVISIBLE
+    }
+    return this
 }
 
 /**
  * Extension method to get a view as bitmap.
  */
 fun View.getBitmap(): Bitmap {
-  val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-  val canvas = Canvas(bmp)
-  draw(canvas)
-  canvas.save()
-  return bmp
+    val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bmp)
+    draw(canvas)
+    canvas.save()
+    return bmp
 }
 
 fun View.fadeIn() {
-  val animationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
-  apply {
-    show()
-    alpha = 0f
-    animate()
-      .alpha(1f)
-      .setDuration(animationDuration.toLong())
-      .setListener(null)
-  }
+    val animationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
+    apply {
+        show()
+        alpha = 0f
+        animate()
+            .alpha(1f)
+            .setDuration(animationDuration.toLong())
+            .setListener(null)
+    }
 }
 
 fun View.fadeOut() {
-  val animationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
-  apply {
-    animate()
-      .alpha(0f)
-      .setDuration(animationDuration.toLong())
-      .setListener(
-        object : AnimatorListenerAdapter() {
-          override fun onAnimationEnd(animation: Animator) {
-            remove()
-          }
-        }
-      )
-  }
+    val animationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
+    apply {
+        animate()
+            .alpha(0f)
+            .setDuration(animationDuration.toLong())
+            .setListener(
+                object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        remove()
+                    }
+                }
+            )
+    }
 }
 
 /**
  * Extension method to get value from EditText.
  */
 val EditText.value
-  get() = text.toString()
+    get() = text.toString()
 
 /**
  * Extension method to get base64 string for Bitmap.
  */
 fun Bitmap.toBase64(): String {
-  var result = ""
-  val baos = ByteArrayOutputStream()
-  try {
-    compress(Bitmap.CompressFormat.JPEG, 100, baos)
-    baos.flush()
-    baos.close()
-    val bitmapBytes = baos.toByteArray()
-    result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT)
-  } catch (e: IOException) {
-    e.printStackTrace()
-  } finally {
+    var result = ""
+    val baos = ByteArrayOutputStream()
     try {
-      baos.flush()
-      baos.close()
+        compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        baos.flush()
+        baos.close()
+        val bitmapBytes = baos.toByteArray()
+        result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT)
     } catch (e: IOException) {
-      e.printStackTrace()
+        e.printStackTrace()
+    } finally {
+        try {
+            baos.flush()
+            baos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
-  }
-  return result
+    return result
 }
 
 class DebounceOnClickListener(
-  private val interval: Long,
-  private val listenerBlock: (View) -> Unit
+    private val interval: Long,
+    private val listenerBlock: (View) -> Unit,
 ) : View.OnClickListener {
-  private var lastClickTime = 0L
+    private var lastClickTime = 0L
 
-  override fun onClick(v: View) {
-    val time = System.currentTimeMillis()
-    if (time - lastClickTime >= interval) {
-      lastClickTime = time
-      listenerBlock(v)
+    override fun onClick(v: View) {
+        val time = System.currentTimeMillis()
+        if (time - lastClickTime >= interval) {
+            lastClickTime = time
+            listenerBlock(v)
+        }
     }
-  }
 }
 
 fun View.setOnClickListener(debounceInterval: Long, listenerBlock: (View) -> Unit) =
-  setOnClickListener(DebounceOnClickListener(debounceInterval, listenerBlock))
+    setOnClickListener(DebounceOnClickListener(debounceInterval, listenerBlock))
 
 @ExperimentalCoroutinesApi
 fun View.clicks(): Flow<Unit> = callbackFlow {
-  val listener = View.OnClickListener { offer(Unit) }
-  setOnClickListener(listener)
-  awaitClose {
-    setOnClickListener(null)
-  }
+    val listener = View.OnClickListener { offer(Unit) }
+    setOnClickListener(listener)
+    awaitClose {
+        setOnClickListener(null)
+    }
 }

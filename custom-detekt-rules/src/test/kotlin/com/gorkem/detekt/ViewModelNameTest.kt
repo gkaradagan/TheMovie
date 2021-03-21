@@ -20,12 +20,12 @@ import io.gitlab.arturbosch.detekt.test.lint
 import org.junit.Test
 
 class ViewModelNameTest {
-  @Test
-  fun notValidViewModelName() {
-    val findings = ViewModelName().lint("class SubViewModelGK : ViewModel()")
+    @Test
+    fun notValidViewModelName() {
+        val findings = ViewModelName().lint("class SubViewModelGK : BaseViewModel()")
 
-    assertThat(findings).hasSize(1)
-    assertThat(findings[0].message)
-      .isEqualTo("The name of SubViewModelGK must end with ViewModel")
-  }
+        assertThat(findings).hasSize(1)
+        assertThat(findings[0].message)
+            .isEqualTo("The name of SubViewModelGK must end with ViewModel")
+    }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@file:Suppress("detekt.TooManyFunctions", "EXTENSION_SHADOWED_BY_MEMBER")
+@file:Suppress("detekt.TooManyFunctions")
 
 package com.gorkem.core.ext
 
@@ -44,25 +44,25 @@ fun Context.getColorCompat(color: Int) = ContextCompat.getColor(this, color)
  * Extension method to find a device width in pixels
  */
 inline val Context.displayWidth: Int
-  get() = resources.displayMetrics.widthPixels
+    get() = resources.displayMetrics.widthPixels
 
 /**
  * Extension method to find a device height in pixels
  */
 inline val Context.displayHeight: Int
-  get() = resources.displayMetrics.heightPixels
+    get() = resources.displayMetrics.heightPixels
 
 /**
  * Extension method to get displayMetrics in Context.displayMetricks
  */
 inline val Context.displayMetricks: DisplayMetrics
-  get() = resources.displayMetrics
+    get() = resources.displayMetrics
 
 /**
  * Extension method to get LayoutInflater
  */
 inline val Context.inflater: LayoutInflater
-  get() = LayoutInflater.from(this)
+    get() = LayoutInflater.from(this)
 
 /**
  * Extension method to get a new Intent for an Activity class
@@ -73,20 +73,38 @@ inline fun <reified T : Any> Context.intent() = Intent(this, T::class.java)
  * Create an intent for [T] and apply a lambda on it
  */
 inline fun <reified T : Any> Context.intent(body: Intent.() -> Unit): Intent {
-  val intent = Intent(this, T::class.java)
-  intent.body()
-  return intent
+    val intent = Intent(this, T::class.java)
+    intent.body()
+    return intent
 }
 
 /**
  * Extension method to show toast for Context.
  */
-fun Context?.toast(text: CharSequence, duration: Int = Toast.LENGTH_LONG) = this?.let { Toast.makeText(it, text, duration).show() }
+fun Context?.toast(
+    text: CharSequence,
+    duration: Int = Toast.LENGTH_LONG,
+) = this?.let {
+    Toast.makeText(
+        it,
+        text,
+        duration
+    ).show()
+}
 
 /**
  * Extension method to show toast for Context.
  */
-fun Context?.toast(@StringRes textId: Int, duration: Int = Toast.LENGTH_LONG) = this?.let { Toast.makeText(it, textId, duration).show() }
+fun Context?.toast(
+    @StringRes textId: Int,
+    duration: Int = Toast.LENGTH_LONG,
+) = this?.let {
+    Toast.makeText(
+        it,
+        textId,
+        duration
+    ).show()
+}
 
 /**
  * Extension method to Get Integer resource for Context.
@@ -111,17 +129,21 @@ fun Context.getDrawable(@DrawableRes id: Int) = ContextCompat.getDrawable(this, 
 /**
  * InflateLayout
  */
-fun Context.inflateLayout(@LayoutRes layoutId: Int, parent: ViewGroup? = null, attachToRoot: Boolean = false): View =
-  LayoutInflater.from(this).inflate(layoutId, parent, attachToRoot)
+fun Context.inflateLayout(
+    @LayoutRes layoutId: Int,
+    parent: ViewGroup? = null,
+    attachToRoot: Boolean = false,
+): View =
+    LayoutInflater.from(this).inflate(layoutId, parent, attachToRoot)
 
 /**
  * Extension method to get inputManager for Context.
  */
 inline val Context.inputManager: InputMethodManager?
-  get() = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+    get() = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
 
 /**
  * Extension method to get theme for Context.
  */
 fun Context.isDarkTheme(): Boolean =
-  resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+    resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES

@@ -27,39 +27,39 @@ import org.jetbrains.kotlin.psi.KtSuperTypeList
 
 class ViewModelName(config: Config = Config.empty) : Rule(config) {
 
-  override val issue = Issue(
-    javaClass.simpleName,
-    Severity.Maintainability,
-    "The name of ViewModels names must end with ViewModel",
-    Debt.TWENTY_MINS
-  )
+    override val issue = Issue(
+        javaClass.simpleName,
+        Severity.Maintainability,
+        "The name of ViewModels names must end with ViewModel",
+        Debt.TWENTY_MINS
+    )
 
-  private var className: String? = null
+    private var className: String? = null
 
-  override fun visitSuperTypeList(list: KtSuperTypeList) {
-    var hasViewModelParent = false
-    list.entries.forEach { parent ->
-      if (parent.text.contains("ViewModel")) {
-        hasViewModelParent = true
-        return@forEach
-      }
+    override fun visitSuperTypeList(list: KtSuperTypeList) {
+        var hasViewModelParent = false
+        list.entries.forEach { parent ->
+            if (parent.text.contains("BaseViewModel")) {
+                hasViewModelParent = true
+                return@forEach
+            }
+        }
+        className?.let { name ->
+            if (hasViewModelParent && !name.replace(".kt", "").endsWith("ViewModel")) {
+                report(
+                    CodeSmell(
+                        issue,
+                        Entity.from(list),
+                        "The name of $className must end with ViewModel"
+                    )
+                )
+            }
+        }
+        super.visitSuperTypeList(list)
     }
-    className?.let { name ->
-      if (hasViewModelParent && !name.replace(".kt", "").endsWith("ViewModel")) {
-        report(
-          CodeSmell(
-            issue,
-            Entity.from(list),
-            "The name of $className must end with ViewModel"
-          )
-        )
-      }
-    }
-    super.visitSuperTypeList(list)
-  }
 
-  override fun visitClassOrObject(classOrObject: KtClassOrObject) {
-    className = classOrObject.name
-    super.visitClassOrObject(classOrObject)
-  }
+    override fun visitClassOrObject(classOrObject: KtClassOrObject) {
+        className = classOrObject.name
+        super.visitClassOrObject(classOrObject)
+    }
 }

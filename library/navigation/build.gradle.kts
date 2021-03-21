@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 plugins {
-  id(GradlePluginId.COMMON_ANDROID_LIBRARY)
-  id(GradlePluginId.QUADRANT)
-  id(GradlePluginId.SAFE_ARGS)
+    id(GradlePluginId.COMMON_ANDROID_LIBRARY)
+    id(GradlePluginId.QUADRANT)
+    id(GradlePluginId.SAFE_ARGS)
+}
+
+dependencies {
+    addNavigationComponent()
 }

@@ -29,62 +29,64 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<STATE : ViewState,
-  INTENT : ViewIntent,
-  EFFECT : ViewEffect,
-  BINDING : ViewBinding,
-  VM : BaseViewModel<STATE, INTENT, EFFECT>> :
-  Fragment() {
+abstract class BaseFragment<
+    STATE : ViewState,
+    INTENT : ViewIntent,
+    EFFECT : ViewEffect,
+    BINDING : ViewBinding,
+    VM : BaseViewModel<STATE, INTENT, EFFECT>,
+    > :
+    Fragment() {
 
-  private var uiStateJob: Job? = null
+    private var uiStateJob: Job? = null
 
-  private var _binding: BINDING? = null
+    private var _binding: BINDING? = null
 
-  // This property is only valid between onCreateView and
-  private val binding get() = _binding!!
+    // This property is only valid between onCreateView and
+    private val binding get() = _binding!!
 
-  val viewModel: VM by lazy { viewModel() }
+    val viewModel: VM by lazy { viewModel() }
 
-  abstract fun viewModel(): VM
+    abstract fun viewModel(): VM
 
-  abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): BINDING
+    abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): BINDING
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    _binding = getViewBinding(inflater, container)
-    return binding.root
-  }
-
-  override fun onStart() {
-    super.onStart()
-    // Start collecting when the View is visible
-    // https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#livedata
-    uiStateJob = lifecycleScope.launch {
-      viewModel.state.collect { state ->
-        renderUI(state)
-      }
-
-      viewModel.effect.collect { effect ->
-        handleEffect(effect)
-      }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        _binding = getViewBinding(inflater, container)
+        return binding.root
     }
-  }
 
-  abstract fun renderUI(state: STATE)
+    override fun onStart() {
+        super.onStart()
+        // Start collecting when the View is visible
+        // https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#livedata
+        uiStateJob = lifecycleScope.launch {
+            viewModel.state.collect { state ->
+                renderUI(state)
+            }
 
-  abstract fun handleEffect(effect: EFFECT)
+            viewModel.effect.collect { effect ->
+                handleEffect(effect)
+            }
+        }
+    }
 
-  override fun onStop() {
-    // Stop collecting when the View goes to the background
-    uiStateJob?.cancel()
-    super.onStop()
-  }
+    abstract fun renderUI(state: STATE)
 
-  override fun onDestroyView() {
-    super.onDestroyView()
-    _binding = null
-  }
+    abstract fun handleEffect(effect: EFFECT)
+
+    override fun onStop() {
+        // Stop collecting when the View goes to the background
+        uiStateJob?.cancel()
+        super.onStop()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

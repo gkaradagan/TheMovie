@@ -20,17 +20,17 @@ import io.gitlab.arturbosch.detekt.test.lint
 import org.junit.Test
 
 class RepositoryPackageTest {
-  @Test
-  fun notValidPackageForRepository() {
-    val findings = RepositoryPackage().lint(
-      "package com.gorkem.detekt\n" +
-        "\n" +
-        "class LoginRepository {\n" +
-        "}\n"
-    )
+    @Test
+    fun notValidPackageForRepository() {
+        val findings = RepositoryPackage().lint(
+            "package com.gorkem.detekt\n" +
+                "\n" +
+                "class LoginRepository {\n" +
+                "}\n"
+        )
 
-    assertThat(findings).hasSize(1)
-    assertThat(findings[0].message)
-      .isEqualTo("LoginRepository must be inside of repository package")
-  }
+        assertThat(findings).hasSize(1)
+        assertThat(findings[0].message)
+            .isEqualTo("LoginRepository must be inside of repository package")
+    }
 }

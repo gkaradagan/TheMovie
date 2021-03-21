@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 plugins {
-  id(GradlePluginId.COMMON_ANDROID_LIBRARY)
-  id(GradlePluginId.HILT)
+    id(GradlePluginId.COMMON_ANDROID_LIBRARY)
+    id(GradlePluginId.HILT)
 }
 
 dependencies {
-  implementation(LibraryDependency.ANDROIDX_CORE_KTX)
-  implementation(LibraryDependency.ANDROIDX_APPCOMPAT)
-  implementation(LibraryDependency.MATERIAL)
+    implementation(LibraryDependency.ANDROIDX_CORE_KTX)
+    implementation(LibraryDependency.ANDROIDX_APPCOMPAT)
+    implementation(LibraryDependency.MATERIAL)
 
-  implementation(LibraryDependency.TIMBER)
-  implementation(LibraryDependency.COROUTINES)
+    implementation(LibraryDependency.TIMBER)
+    implementation(LibraryDependency.COROUTINES)
 
-  addLifecycleDependencies()
+    addLifecycleDependencies()
 
-  addHilt()
+    addHilt()
 
-  addTestDependencies()
+    addTestDependencies()
 }

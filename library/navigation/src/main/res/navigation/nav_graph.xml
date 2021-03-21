@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/movies">
+
+
+    <fragment
+        android:id="@+id/movies"
+        android:name="com.gorkem.popularmovie.presentation.PopularMovieFragment"
+        android:label="fragment_movie" />
+
+    <fragment
+        android:id="@+id/tvShows"
+        android:name="com.gorkem.popularseries.presentation.PopularSeriesFragment"
+        android:label="fragment_series" />
+
+    <fragment
+        android:id="@+id/favourite"
+        android:name="com.gorkem.favourite.presentation.FavouriteFragment"
+        android:label="fragment_favourite" />
+</navigation>

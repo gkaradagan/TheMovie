@@ -22,38 +22,38 @@ import io.gitlab.arturbosch.detekt.api.Entity
 import io.gitlab.arturbosch.detekt.api.Issue
 import io.gitlab.arturbosch.detekt.api.Rule
 import io.gitlab.arturbosch.detekt.api.Severity
-import java.util.Locale
 import org.jetbrains.kotlin.psi.KtClassOrObject
 import org.jetbrains.kotlin.psi.KtPackageDirective
+import java.util.Locale
 
 class RepositoryPackage(config: Config = Config.empty) : Rule(config) {
 
-  override val issue = Issue(
-    javaClass.simpleName,
-    Severity.Maintainability,
-    "The repository classes must be in the repository package",
-    Debt.TWENTY_MINS
-  )
+    override val issue = Issue(
+        javaClass.simpleName,
+        Severity.Maintainability,
+        "The repository classes must be in the repository package",
+        Debt.TWENTY_MINS
+    )
 
-  lateinit var packageName: String
+    lateinit var packageName: String
 
-  override fun visitPackageDirective(directive: KtPackageDirective) {
-    packageName = directive.name
-    super.visitPackageDirective(directive)
-  }
-
-  override fun visitClassOrObject(classOrObject: KtClassOrObject) {
-    classOrObject.name?.let { nameOfClass ->
-      if (nameOfClass.toLowerCase(Locale.ENGLISH).endsWith("repository") && packageName != "repository") {
-        report(
-          CodeSmell(
-            issue,
-            Entity.from(classOrObject),
-            "$nameOfClass must be inside of repository package"
-          )
-        )
-      }
+    override fun visitPackageDirective(directive: KtPackageDirective) {
+        packageName = directive.name
+        super.visitPackageDirective(directive)
     }
-    super.visitClassOrObject(classOrObject)
-  }
+
+    override fun visitClassOrObject(classOrObject: KtClassOrObject) {
+        classOrObject.name?.let { nameOfClass ->
+            if (nameOfClass.toLowerCase(Locale.ENGLISH).endsWith("repository") && packageName != "repository") {
+                report(
+                    CodeSmell(
+                        issue,
+                        Entity.from(classOrObject),
+                        "$nameOfClass must be inside of repository package"
+                    )
+                )
+            }
+        }
+        super.visitClassOrObject(classOrObject)
+    }
 }

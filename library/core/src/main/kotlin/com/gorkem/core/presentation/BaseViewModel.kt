@@ -21,14 +21,19 @@ import com.gorkem.core.presentation.arch.ViewEffect
 import com.gorkem.core.presentation.arch.ViewIntent
 import com.gorkem.core.presentation.arch.ViewState
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<
-        STATE : ViewState,
-        INTENT : ViewIntent,
-        EFFECT : ViewEffect> : ViewModel() {
+    STATE : ViewState,
+    INTENT : ViewIntent,
+    EFFECT : ViewEffect> : ViewModel() {
 
     /**
      * It holds the last UI state

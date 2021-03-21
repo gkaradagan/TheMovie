@@ -17,15 +17,15 @@ import commons.implementation
 import commons.testImplementation
 
 plugins {
-  id(GradlePluginId.KOTLIN)
+    id(GradlePluginId.KOTLIN)
 }
 
 dependencies {
-  implementation(LibraryDependency.DETEKT_API)
+    implementation(LibraryDependency.DETEKT_API)
 
-  testImplementation(TestDependencies.ANDROIDX_JUNIT)
-  testImplementation(TestDependencies.ANDROIDX_TRUTH)
+    testImplementation(TestDependencies.ANDROIDX_JUNIT)
+    testImplementation(TestDependencies.ANDROIDX_TRUTH)
 
-  testImplementation(LibraryDependency.DETEKT_API)
-  testImplementation(LibraryDependency.DETEKT_TEST)
+    testImplementation(LibraryDependency.DETEKT_API)
+    testImplementation(LibraryDependency.DETEKT_TEST)
 }

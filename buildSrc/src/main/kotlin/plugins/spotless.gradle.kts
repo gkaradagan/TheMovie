@@ -47,7 +47,7 @@ configure<SpotlessExtension> {
         )
         licenseHeaderFile(
             rootProject.file("tools/spotless/copyright.kt"),
-            "^(package|object|import|interface)"
+            "^(@file:Suppress|package|object|import|interface)"
         )
         trimTrailingWhitespace()
         indentWithSpaces()

@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 plugins {
-  id(GradlePluginId.COMMON_ANDROID_LIBRARY)
+    id(GradlePluginId.COMMON_ANDROID_LIBRARY)
 }
