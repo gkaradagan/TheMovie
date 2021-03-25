@@ -20,8 +20,8 @@ import com.gorkem.core.presentation.BaseViewModel
 class FavouriteViewModel :
     BaseViewModel<FavouriteState, FavouriteIntent, FavouriteEffect>() {
 
-    override fun initialState(): FavouriteState = FavouriteState.NONE
+    override fun initialState(): FavouriteState = FavouriteState(isLoading = false)
 
-    override fun handleIntent(intent: FavouriteIntent): FavouriteState =
-        FavouriteState.NONE
+    override fun handleIntent(intent: FavouriteIntent) =
+        setState { copy(isLoading = false) }
 }

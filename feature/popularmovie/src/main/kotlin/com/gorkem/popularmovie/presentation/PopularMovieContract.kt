@@ -19,9 +19,7 @@ import com.gorkem.core.presentation.arch.ViewEffect
 import com.gorkem.core.presentation.arch.ViewIntent
 import com.gorkem.core.presentation.arch.ViewState
 
-sealed class PopularMovieState : ViewState {
-    object NONE : PopularMovieState()
-}
+data class PopularMovieState(val isLoading: Boolean) : ViewState
 
 sealed class PopularMovieEffect : ViewEffect {
     object NONE : PopularMovieEffect()

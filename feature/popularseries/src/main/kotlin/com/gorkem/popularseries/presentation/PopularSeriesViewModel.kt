@@ -20,8 +20,8 @@ import com.gorkem.core.presentation.BaseViewModel
 class PopularSeriesViewModel :
     BaseViewModel<PopularSeriesState, PopularSeriesIntent, PopularSeriesEffect>() {
 
-    override fun initialState(): PopularSeriesState = PopularSeriesState.NONE
+    override fun initialState(): PopularSeriesState = PopularSeriesState(isLoading = false)
 
-    override fun handleIntent(intent: PopularSeriesIntent): PopularSeriesState =
-        PopularSeriesState.NONE
+    override fun handleIntent(intent: PopularSeriesIntent) =
+        setState { copy(isLoading = false) }
 }

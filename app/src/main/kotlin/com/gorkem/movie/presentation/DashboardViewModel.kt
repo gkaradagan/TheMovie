@@ -19,7 +19,8 @@ import com.gorkem.core.presentation.BaseViewModel
 
 class DashboardViewModel : BaseViewModel<DashboardState, DashboardIntent, DashboardEffect>() {
 
-    override fun initialState(): DashboardState = DashboardState.NONE
+    override fun initialState(): DashboardState = DashboardState(isLoading = false)
 
-    override fun handleIntent(intent: DashboardIntent): DashboardState? = DashboardState.NONE
+    override fun handleIntent(intent: DashboardIntent) =
+        setState { copy(isLoading = false) }
 }

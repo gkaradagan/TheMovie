@@ -19,9 +19,7 @@ import com.gorkem.core.presentation.arch.ViewEffect
 import com.gorkem.core.presentation.arch.ViewIntent
 import com.gorkem.core.presentation.arch.ViewState
 
-sealed class FavouriteState : ViewState {
-    object NONE : FavouriteState()
-}
+data class FavouriteState(val isLoading: Boolean) : ViewState
 
 sealed class FavouriteEffect : ViewEffect {
     object NONE : FavouriteEffect()

@@ -19,9 +19,7 @@ import com.gorkem.core.presentation.arch.ViewEffect
 import com.gorkem.core.presentation.arch.ViewIntent
 import com.gorkem.core.presentation.arch.ViewState
 
-sealed class DashboardState : ViewState {
-    object NONE : DashboardState()
-}
+data class DashboardState(val isLoading: Boolean) : ViewState
 
 sealed class DashboardEffect : ViewEffect {
     object NONE : DashboardEffect()

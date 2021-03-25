@@ -33,7 +33,8 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel<
     STATE : ViewState,
     INTENT : ViewIntent,
-    EFFECT : ViewEffect> : ViewModel() {
+    EFFECT : ViewEffect,
+    > : ViewModel() {
 
     /**
      * It holds the last UI state
@@ -74,29 +75,17 @@ abstract class BaseViewModel<
                 intents
                     .distinctUntilChanged()
                     .collect { intent ->
-                        applyState(handleIntent(intent))
+                        handleIntent(intent)
                     }
             }
         }
     }
 
     /**
-     * State is nullable because developer may need to handle ui with SideEffect
-     */
-    private fun applyState(newState: STATE?) {
-        newState?.let {
-            _mutableState.value = newState
-            onNewStateUpdated(newState)
-        }
-    }
-
-    protected fun onNewStateUpdated(newState: STATE) = Unit
-
-    /**
      * Handle Intent and return State
      * It will be saved automatically
      */
-    abstract fun handleIntent(intent: INTENT): STATE?
+    abstract fun handleIntent(intent: INTENT)
 
     /**
      * Views send the intention with this function
@@ -111,5 +100,10 @@ abstract class BaseViewModel<
      */
     protected fun sendEffect(builder: () -> EFFECT) {
         viewModelScope.launch { _effect.send(builder()) }
+    }
+
+    protected fun setState(reduce: STATE.() -> STATE) {
+        val newState = _mutableState.value.reduce()
+        _mutableState.value = newState
     }
 }

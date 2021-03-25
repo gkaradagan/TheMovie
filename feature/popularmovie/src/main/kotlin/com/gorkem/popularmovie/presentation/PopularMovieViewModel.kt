@@ -20,8 +20,8 @@ import com.gorkem.core.presentation.BaseViewModel
 class PopularMovieViewModel :
     BaseViewModel<PopularMovieState, PopularMovieIntent, PopularMovieEffect>() {
 
-    override fun initialState(): PopularMovieState = PopularMovieState.NONE
+    override fun initialState(): PopularMovieState = PopularMovieState(isLoading = false)
 
-    override fun handleIntent(intent: PopularMovieIntent): PopularMovieState =
-        PopularMovieState.NONE
+    override fun handleIntent(intent: PopularMovieIntent) =
+        setState { copy(isLoading = false) }
 }

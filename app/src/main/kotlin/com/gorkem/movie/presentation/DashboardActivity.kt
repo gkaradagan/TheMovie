@@ -24,7 +24,11 @@ import com.gorkem.movie.R
 import com.gorkem.movie.databinding.ActivityDashboardBinding
 
 class DashboardActivity :
-    BaseActivity<DashboardState, DashboardIntent, DashboardEffect, ActivityDashboardBinding, DashboardViewModel>() {
+    BaseActivity<DashboardState,
+        DashboardIntent,
+        DashboardEffect,
+        ActivityDashboardBinding,
+        DashboardViewModel>() {
 
     lateinit var navController: NavController
 
