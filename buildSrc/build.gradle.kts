@@ -5,22 +5,17 @@ plugins {
 
 repositories {
     google()
-    jcenter()
     mavenCentral()
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://plugins.gradle.org/m2/")
 }
 
-kotlinDslPluginOptions {
-    experimentalWarning.set(false)
-}
-
 object PluginVersions {
     // When you change it, you should change GRADLE_VERSION on Versions
-    const val GRADLE_VERSION = "4.1.3"
+    const val GRADLE_VERSION = "4.2.0"
 
     // When you change it, you should change KOTLIN_VERSION on Versions
-    const val KOTLIN_VERSION = "1.4.31"
+    const val KOTLIN_VERSION = "1.5.0"
 
     // When you change it, you should change ANDROIDX_NAVIGATION_COMPONENT_VERSION on Versions
     const val ANDROIDX_NAVIGATION_COMPONENT = "2.3.3"

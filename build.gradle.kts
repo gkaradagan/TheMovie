@@ -9,7 +9,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.STARTED
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath(GradleOldWayPlugins.ANDROID_GRADLE)
@@ -28,7 +28,7 @@ plugins {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
