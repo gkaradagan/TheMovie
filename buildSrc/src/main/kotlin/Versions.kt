@@ -23,6 +23,7 @@ object Versions {
     // When you change it, you should change ANDROIDX_NAVIGATION_COMPONENT on buildSrc build.gradle.kts
     const val ANDROIDX_NAVIGATION_COMPONENT = "2.3.5"
     const val ANDROIDX_FRAGMENT_KTX = "1.3.2"
+    const val ANDROIDX_DATASTORE = "1.0.0-beta01"
 
     //Lifecycle
     const val LIFECYCLE = "2.3.1"

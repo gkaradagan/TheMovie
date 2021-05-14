@@ -114,6 +114,8 @@ dependencies {
     implementation(LibraryDependency.ANDROIDX_VIEWPAGER2)
     implementation(LibraryDependency.ANDROIDX_FRAGMENT_KTX)
 
+    implementation(LibraryDependency.ANDROIDX_DATASTORE)
+
     debugImplementation(LibraryDependency.LEAK_CANARY)
 
     addLifecycleDependencies()

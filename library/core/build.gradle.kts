@@ -1,3 +1,5 @@
+import commons.implementation
+
 /*
  * Copyright 2020 Görkem Karadoğan
  *
@@ -27,6 +29,8 @@ dependencies {
     implementation(LibraryDependency.TIMBER)
     implementation(LibraryDependency.COROUTINES)
     implementation(LibraryDependency.ANDROIDX_FRAGMENT_KTX)
+
+    implementation(LibraryDependency.ANDROIDX_DATASTORE)
 
     addLifecycleDependencies()
 

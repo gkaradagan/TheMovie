@@ -36,6 +36,8 @@ class AndroidFeaturePlugin : Plugin<Project> {
             implementation(LibraryDependency.ANDROIDX_VIEWPAGER2)
             implementation(LibraryDependency.ANDROIDX_FRAGMENT_KTX)
 
+            implementation(LibraryDependency.ANDROIDX_DATASTORE)
+
             addLifecycleDependencies()
 
             addNavigationComponent()

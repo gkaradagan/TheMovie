@@ -32,6 +32,10 @@ object LibraryDependency {
     const val ANDROIDX_FRAGMENT_KTX =
         "androidx.fragment:fragment-ktx:${Versions.ANDROIDX_FRAGMENT_KTX}"
 
+    //DataStore
+    const val ANDROIDX_DATASTORE =
+        "androidx.datastore:datastore-preferences:${Versions.ANDROIDX_DATASTORE}"
+
     //ViewModel
     const val ANDROIDX_VIEW_MODEL =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LIFECYCLE}"
