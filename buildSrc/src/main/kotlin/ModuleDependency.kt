@@ -5,6 +5,7 @@ import kotlin.reflect.full.memberProperties
 object ModuleDependency {
     // All consts are accessed via reflection
     const val APP = ":app"
+    const val COMMON = ":common"
     const val CORE = ":library:core"
     const val NAVIGATION = ":library:navigation"
 

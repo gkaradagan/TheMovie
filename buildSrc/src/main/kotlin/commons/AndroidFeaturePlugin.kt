@@ -22,6 +22,7 @@ class AndroidFeaturePlugin : Plugin<Project> {
         project.dependencies {
             implementation(project(ModuleDependency.CORE))
             implementation(project(ModuleDependency.NAVIGATION))
+            implementation(project(ModuleDependency.COMMON))
 
             implementation(LibraryDependency.KOTLIN_STDLIB)
             implementation(LibraryDependency.ANDROIDX_CORE_KTX)

@@ -10,11 +10,15 @@ rootDir
             file("${it.absolutePath}/build.gradle.kts").exists()
     }
     .forEach {
-        if (it.parentFile.name == "library") {
-            include(":library:${it.name}")
-        } else if (it.parentFile.name == "feature") {
-            include(":feature:${it.name}")
-        } else {
-            include(":${it.name}")
+        when (it.parentFile.name) {
+            "library" -> {
+                include(":library:${it.name}")
+            }
+            "feature" -> {
+                include(":feature:${it.name}")
+            }
+            else -> {
+                include(":${it.name}")
+            }
         }
     }
