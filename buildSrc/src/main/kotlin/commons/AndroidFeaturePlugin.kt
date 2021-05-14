@@ -34,6 +34,7 @@ class AndroidFeaturePlugin : Plugin<Project> {
             implementation(LibraryDependency.ANDROIDX_CONSTRAINTLAYOUT)
             implementation(LibraryDependency.ANDROIDX_RECYCLERVIEW)
             implementation(LibraryDependency.ANDROIDX_VIEWPAGER2)
+            implementation(LibraryDependency.ANDROIDX_FRAGMENT_KTX)
 
             addLifecycleDependencies()
 

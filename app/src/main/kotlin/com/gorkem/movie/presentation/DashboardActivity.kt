@@ -16,13 +16,16 @@
 package com.gorkem.movie.presentation
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.gorkem.core.presentation.BaseActivity
 import com.gorkem.movie.R
 import com.gorkem.movie.databinding.ActivityDashboardBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DashboardActivity :
     BaseActivity<DashboardState,
         DashboardIntent,
@@ -32,9 +35,9 @@ class DashboardActivity :
 
     lateinit var navController: NavController
 
-    override fun viewModel(): DashboardViewModel {
-        return DashboardViewModel()
-    }
+    private val _vm: DashboardViewModel by viewModels()
+
+    override fun viewModel(): DashboardViewModel = _vm
 
     override fun getViewBinding() =
         ActivityDashboardBinding.inflate(layoutInflater)

@@ -16,8 +16,12 @@
 package com.gorkem.movie.presentation
 
 import com.gorkem.core.presentation.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class DashboardViewModel : BaseViewModel<DashboardState, DashboardIntent, DashboardEffect>() {
+@HiltViewModel
+class DashboardViewModel @Inject constructor() :
+    BaseViewModel<DashboardState, DashboardIntent, DashboardEffect>() {
 
     override fun initialState(): DashboardState = DashboardState(isLoading = false)
 

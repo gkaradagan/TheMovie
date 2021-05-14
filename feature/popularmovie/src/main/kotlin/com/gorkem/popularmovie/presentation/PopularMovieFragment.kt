@@ -17,16 +17,22 @@ package com.gorkem.popularmovie.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.gorkem.core.presentation.BaseFragment
 import com.gorkem.popularmovie.databinding.FragmentPopularMovieBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PopularMovieFragment :
     BaseFragment<PopularMovieState,
         PopularMovieIntent,
         PopularMovieEffect,
         FragmentPopularMovieBinding,
         PopularMovieViewModel>() {
-    override fun viewModel(): PopularMovieViewModel = PopularMovieViewModel()
+
+    private val _vm: PopularMovieViewModel by viewModels()
+
+    override fun viewModel(): PopularMovieViewModel = _vm
 
     override fun getViewBinding(
         inflater: LayoutInflater,

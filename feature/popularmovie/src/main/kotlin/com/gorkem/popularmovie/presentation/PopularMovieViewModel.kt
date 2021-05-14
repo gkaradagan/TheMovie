@@ -16,8 +16,11 @@
 package com.gorkem.popularmovie.presentation
 
 import com.gorkem.core.presentation.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class PopularMovieViewModel :
+@HiltViewModel
+class PopularMovieViewModel @Inject constructor() :
     BaseViewModel<PopularMovieState, PopularMovieIntent, PopularMovieEffect>() {
 
     override fun initialState(): PopularMovieState = PopularMovieState(isLoading = false)

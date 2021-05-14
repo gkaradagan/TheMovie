@@ -16,8 +16,11 @@
 package com.gorkem.popularseries.presentation
 
 import com.gorkem.core.presentation.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class PopularSeriesViewModel :
+@HiltViewModel
+class PopularSeriesViewModel @Inject constructor() :
     BaseViewModel<PopularSeriesState, PopularSeriesIntent, PopularSeriesEffect>() {
 
     override fun initialState(): PopularSeriesState = PopularSeriesState(isLoading = false)

@@ -29,4 +29,17 @@ configure<KtlintExtension> {
         exclude("**/generated/**")
         include("**/kotlin/**")
     }
+
+    //Workaround - https://github.com/JLLeitschuh/ktlint-gradle/issues/458
+    configurations.named("ktlint").configure {
+        resolutionStrategy {
+            dependencySubstitution {
+                substitute(module("com.pinterest:ktlint")).with(variant(module("com.pinterest:ktlint:${Versions.KTLINT_INTERNAL}")) {
+                    attributes {
+                        attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling::class, Bundling.EXTERNAL))
+                    }
+                })
+            }
+        }
+    }
 }

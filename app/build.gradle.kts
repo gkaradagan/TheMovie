@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import commons.implementation
 import commons.project
 import extension.setDefaults
@@ -25,6 +26,8 @@ plugins {
 }
 
 val javaVersion: JavaVersion by extra { JavaVersion.VERSION_1_8 }
+val apiKey: String = gradleLocalProperties(rootDir).getProperty("api.key")
+val apiUrl: String = project.property("api.url") as String
 
 android {
     compileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
@@ -37,9 +40,12 @@ android {
         versionCode = AndroidConfig.VERSION_CODE
         versionName = AndroidConfig.getSemanticAppVersionName()
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
+        buildConfigField("String", "API_KEY", apiKey)
+        buildConfigField("String", "API_URL", apiUrl)
     }
 
     buildTypes {
+
         getByName(BuildType.RELEASE) {
             isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
             proguardFiles("proguard-android.txt", "proguard-rules.pro")
@@ -106,6 +112,7 @@ dependencies {
     implementation(LibraryDependency.ANDROIDX_CONSTRAINTLAYOUT)
     implementation(LibraryDependency.ANDROIDX_RECYCLERVIEW)
     implementation(LibraryDependency.ANDROIDX_VIEWPAGER2)
+    implementation(LibraryDependency.ANDROIDX_FRAGMENT_KTX)
 
     debugImplementation(LibraryDependency.LEAK_CANARY)
 

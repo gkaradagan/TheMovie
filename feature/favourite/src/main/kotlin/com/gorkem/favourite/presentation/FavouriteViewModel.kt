@@ -16,8 +16,11 @@
 package com.gorkem.favourite.presentation
 
 import com.gorkem.core.presentation.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class FavouriteViewModel :
+@HiltViewModel
+class FavouriteViewModel @Inject constructor() :
     BaseViewModel<FavouriteState, FavouriteIntent, FavouriteEffect>() {
 
     override fun initialState(): FavouriteState = FavouriteState(isLoading = false)

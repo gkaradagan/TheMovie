@@ -17,16 +17,22 @@ package com.gorkem.popularseries.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.gorkem.core.presentation.BaseFragment
 import com.gorkem.popularseries.databinding.FragmentPopularSeriesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PopularSeriesFragment :
     BaseFragment<PopularSeriesState,
         PopularSeriesIntent,
         PopularSeriesEffect,
         FragmentPopularSeriesBinding,
         PopularSeriesViewModel>() {
-    override fun viewModel(): PopularSeriesViewModel = PopularSeriesViewModel()
+
+    private val _vm: PopularSeriesViewModel by viewModels()
+
+    override fun viewModel(): PopularSeriesViewModel = _vm
 
     override fun getViewBinding(
         inflater: LayoutInflater,

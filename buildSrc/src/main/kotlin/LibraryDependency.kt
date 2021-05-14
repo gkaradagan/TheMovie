@@ -28,6 +28,10 @@ object LibraryDependency {
     const val ANDROIDX_NAVIGATION_UI =
         "androidx.navigation:navigation-ui-ktx:${Versions.ANDROIDX_NAVIGATION_COMPONENT}"
 
+    //Fragment
+    const val ANDROIDX_FRAGMENT_KTX =
+        "androidx.fragment:fragment-ktx:${Versions.ANDROIDX_FRAGMENT_KTX}"
+
     //ViewModel
     const val ANDROIDX_VIEW_MODEL =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LIFECYCLE}"

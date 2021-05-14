@@ -15,6 +15,7 @@
  */
 plugins {
     id(GradlePluginId.COMMON_ANDROID_LIBRARY)
+    id(GradlePluginId.KOTLIN_KAPT)
     id(GradlePluginId.HILT)
 }
 
@@ -25,6 +26,7 @@ dependencies {
 
     implementation(LibraryDependency.TIMBER)
     implementation(LibraryDependency.COROUTINES)
+    implementation(LibraryDependency.ANDROIDX_FRAGMENT_KTX)
 
     addLifecycleDependencies()
 

@@ -22,7 +22,7 @@ object PluginVersions {
 
     const val SPOTLESS = "5.8.2"
     const val DETEKT = "1.16.0"
-    const val KTLINT = "9.4.1"
+    const val KTLINT = "10.0.0"
     const val JACOCO = "0.16.0"
     const val BEN_MANES = "0.36.0"
     const val QUADRANT = "1.4"

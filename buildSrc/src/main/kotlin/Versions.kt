@@ -11,7 +11,7 @@ object Versions {
 
     //Plugins
     const val KTLINT_INTERNAL = "0.41.0"
-    const val DETEKT_INTERNAL = "1.16.0"
+    const val DETEKT_INTERNAL = "1.17.0-RC3"
     const val JACOCO_INTERNAL = "0.8.5"
 
     //Androidx
@@ -22,6 +22,7 @@ object Versions {
     const val ANDROIDX_VIEWPAGER2 = "1.0.0"
     // When you change it, you should change ANDROIDX_NAVIGATION_COMPONENT on buildSrc build.gradle.kts
     const val ANDROIDX_NAVIGATION_COMPONENT = "2.3.5"
+    const val ANDROIDX_FRAGMENT_KTX = "1.3.2"
 
     //Lifecycle
     const val LIFECYCLE = "2.3.1"

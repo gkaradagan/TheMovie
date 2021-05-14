@@ -17,18 +17,22 @@ package com.gorkem.favourite.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.gorkem.core.presentation.BaseFragment
 import com.gorkem.favourite.databinding.FragmentFavouriteBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavouriteFragment :
     BaseFragment<FavouriteState,
         FavouriteIntent,
         FavouriteEffect,
         FragmentFavouriteBinding,
         FavouriteViewModel>() {
-    override fun viewModel(): FavouriteViewModel {
-        return FavouriteViewModel()
-    }
+
+    private val _vm: FavouriteViewModel by viewModels()
+
+    override fun viewModel(): FavouriteViewModel = _vm
 
     override fun getViewBinding(
         inflater: LayoutInflater,

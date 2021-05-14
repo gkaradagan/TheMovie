@@ -44,7 +44,7 @@ class RepositoryPackage(config: Config = Config.empty) : Rule(config) {
 
     override fun visitClassOrObject(classOrObject: KtClassOrObject) {
         classOrObject.name?.let { nameOfClass ->
-            if (nameOfClass.toLowerCase(Locale.ENGLISH).endsWith("repository") && packageName != "repository") {
+            if (nameOfClass.lowercase(Locale.ENGLISH).endsWith("repository") && packageName != "repository") {
                 report(
                     CodeSmell(
                         issue,
