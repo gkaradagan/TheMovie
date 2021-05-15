@@ -15,7 +15,9 @@
  */
 package com.gorkem.popularmovie.presentation
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.gorkem.core.presentation.BaseFragment
@@ -43,6 +45,12 @@ class PopularMovieFragment :
             container,
             false
         )
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.sendIntent(PopularMovieIntent.LoadPopularMovies)
+    }
 
     override fun renderUI(state: PopularMovieState) = Unit
 

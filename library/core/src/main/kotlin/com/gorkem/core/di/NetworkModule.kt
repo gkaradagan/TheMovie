@@ -3,6 +3,7 @@ package com.gorkem.core.di
 import com.gorkem.core.data.interceptor.TheMovieInterceptor
 import com.gorkem.core.di.qualifier.ApiUrl
 import com.gorkem.core.di.qualifier.Debug
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -18,8 +20,10 @@ import javax.inject.Singleton
 internal object NetworkModule {
 
     @Provides
-    fun provideLoggingInterceptor(@Debug isDebug: Boolean) =
-        HttpLoggingInterceptor().apply {
+    fun provideHttpLoggingInterceptor(@Debug isDebug: Boolean): HttpLoggingInterceptor =
+        HttpLoggingInterceptor { message ->
+            Timber.tag("TheMoview OkHttp").d(message)
+        }.apply {
             level =
                 if (isDebug) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         }
@@ -31,14 +35,18 @@ internal object NetworkModule {
         theMovieInterceptor: TheMovieInterceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(interceptor)
             .addInterceptor(theMovieInterceptor)
+            .addInterceptor(interceptor)
             .build()
 
     @Provides
     @Singleton
-    fun provideMoshiConverterFactory(): MoshiConverterFactory =
-        MoshiConverterFactory.create()
+    fun provideMoshiConverterFactory(moshi: Moshi): MoshiConverterFactory =
+        MoshiConverterFactory.create(moshi)
+
+    @Singleton
+    @Provides
+    fun providesMoshi(): Moshi = Moshi.Builder().build()
 
     @Provides
     @Singleton

@@ -15,7 +15,9 @@
  */
 package com.gorkem.popularseries.presentation
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.gorkem.core.presentation.BaseFragment
@@ -39,6 +41,12 @@ class PopularSeriesFragment :
         container: ViewGroup?,
     ): FragmentPopularSeriesBinding =
         FragmentPopularSeriesBinding.inflate(inflater, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.sendIntent(PopularSeriesIntent.LoadPopularTvShows)
+    }
 
     override fun renderUI(state: PopularSeriesState) = Unit
 

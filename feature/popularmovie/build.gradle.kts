@@ -18,4 +18,6 @@ plugins {
 }
 
 dependencies {
+
+    addNetworkDependencies()
 }

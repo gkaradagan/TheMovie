@@ -1,5 +1,4 @@
 import commons.implementation
-import commons.project
 
 /*
  * Copyright 2020 Görkem Karadoğan
@@ -23,7 +22,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(ModuleDependency.CORE))
     implementation(LibraryDependency.ANDROIDX_CORE_KTX)
     implementation(LibraryDependency.ANDROIDX_APPCOMPAT)
     implementation(LibraryDependency.MATERIAL)

@@ -15,14 +15,20 @@
  */
 package com.gorkem.popularmovie.presentation
 
+import com.gorkem.common.domain.model.ProgramUIModel
 import com.gorkem.core.presentation.arch.ViewEffect
 import com.gorkem.core.presentation.arch.ViewIntent
 import com.gorkem.core.presentation.arch.ViewState
 
-data class PopularMovieState(val isLoading: Boolean) : ViewState
+data class PopularMovieState(
+    val isLoading: Boolean,
+    val programList: List<ProgramUIModel>,
+) : ViewState
 
 sealed class PopularMovieEffect : ViewEffect {
-    object NONE : PopularMovieEffect()
+    object ShowErrorSnackBar : PopularMovieEffect()
 }
 
-sealed class PopularMovieIntent : ViewIntent
+sealed class PopularMovieIntent : ViewIntent {
+    object LoadPopularMovies : PopularMovieIntent()
+}

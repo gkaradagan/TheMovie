@@ -23,7 +23,7 @@ import timber.log.Timber
 /**
  * Executes business logic synchronously or asynchronously using Coroutines.
  */
-abstract class UseCase<in P, R>(private val coroutineDispatcher: CoroutineDispatcher) {
+abstract class UseCase<in P, R> {
 
     /** Executes the use case asynchronously and returns a [Result].
      *
@@ -38,7 +38,7 @@ abstract class UseCase<in P, R>(private val coroutineDispatcher: CoroutineDispat
             // Moving all use case's executions to the injected dispatcher
             // In production code, this is usually the Default dispatcher (background thread)
             // In tests, this becomes a TestCoroutineDispatcher
-            withContext(coroutineDispatcher) {
+            withContext(dispatcher) {
                 execute(parameters).let {
                     Result.Success(it)
                 }
@@ -48,6 +48,8 @@ abstract class UseCase<in P, R>(private val coroutineDispatcher: CoroutineDispat
             Result.Error(e)
         }
     }
+
+    abstract val dispatcher: CoroutineDispatcher
 
     /**
      * Override this to set the code to be executed.

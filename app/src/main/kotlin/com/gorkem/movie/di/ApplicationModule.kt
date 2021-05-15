@@ -4,11 +4,14 @@ import com.gorkem.core.di.qualifier.ApiKey
 import com.gorkem.core.di.qualifier.ApiUrl
 import com.gorkem.core.di.qualifier.BuildType
 import com.gorkem.core.di.qualifier.Debug
+import com.gorkem.core.util.AppCoroutineDispatchers
 import com.gorkem.movie.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.Dispatchers
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -29,4 +32,12 @@ internal object ApplicationModule {
     @Debug
     @Provides
     fun provideDebug(): Boolean = BuildConfig.DEBUG
+
+    @Singleton
+    @Provides
+    fun provideAppCoroutineDispatchers(): AppCoroutineDispatchers = AppCoroutineDispatchers(
+        io = Dispatchers.IO,
+        computation = Dispatchers.Default,
+        main = Dispatchers.Main
+    )
 }

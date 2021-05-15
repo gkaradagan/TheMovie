@@ -118,6 +118,8 @@ dependencies {
 
     debugImplementation(LibraryDependency.LEAK_CANARY)
 
+    addNetworkDependencies()
+
     addLifecycleDependencies()
 
     addNavigationComponent()

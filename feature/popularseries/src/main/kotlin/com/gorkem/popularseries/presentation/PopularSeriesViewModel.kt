@@ -15,16 +15,41 @@
  */
 package com.gorkem.popularseries.presentation
 
+import androidx.lifecycle.viewModelScope
+import com.gorkem.core.domain.model.Result
 import com.gorkem.core.presentation.BaseViewModel
+import com.gorkem.popularseries.domain.interactor.PopularTvShowsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PopularSeriesViewModel @Inject constructor() :
+class PopularSeriesViewModel @Inject constructor(private val popularTvShowsUseCase: PopularTvShowsUseCase) :
     BaseViewModel<PopularSeriesState, PopularSeriesIntent, PopularSeriesEffect>() {
 
-    override fun initialState(): PopularSeriesState = PopularSeriesState(isLoading = false)
+    override fun initialState(): PopularSeriesState = PopularSeriesState(
+        isLoading = false,
+        mutableListOf()
+    )
 
-    override fun handleIntent(intent: PopularSeriesIntent) =
-        setState { copy(isLoading = false) }
+    override fun handleIntent(intent: PopularSeriesIntent) {
+        when (intent) {
+            PopularSeriesIntent.LoadPopularTvShows -> {
+                viewModelScope.launch {
+                    popularTvShowsUseCase.invoke(1).collect { result ->
+                        when (result) {
+                            Result.Loading -> setState { copy(isLoading = true) }
+                            is Result.Success -> {
+                                setState { copy(isLoading = false, programList = result.data) }
+                            }
+                            is Result.Error -> {
+                                sendEffect { PopularSeriesEffect.ShowErrorSnackBar }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
