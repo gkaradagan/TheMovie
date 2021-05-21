@@ -11,6 +11,7 @@ import addHilt
 import addTestDependencies
 import ModuleDependency
 import addNavigationComponent
+import addJsonDependencies
 
 class AndroidFeaturePlugin : Plugin<Project> {
     override fun apply(project: Project) {
@@ -42,6 +43,8 @@ class AndroidFeaturePlugin : Plugin<Project> {
             addLifecycleDependencies()
 
             addNavigationComponent()
+
+            addJsonDependencies()
 
             addHilt()
 

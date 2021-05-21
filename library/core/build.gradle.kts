@@ -36,6 +36,8 @@ dependencies {
 
     addHilt()
 
+    addJsonDependencies()
+
     addNetworkDependencies()
 
     addTestDependencies()

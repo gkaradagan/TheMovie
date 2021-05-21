@@ -76,7 +76,8 @@ object LibraryDependency {
     const val MOSHI_CONVERTER = "com.squareup.retrofit2:converter-moshi:${Versions.RETROFIT}"
 
     //Json
-    const val MOSHI = "ccom.squareup.moshi:moshi:${Versions.MOSHI}"
+    const val MOSHI = "com.squareup.moshi:moshi:${Versions.MOSHI}"
+    const val MOSHI_KOTLIN = "com.squareup.moshi:moshi-kotlin:${Versions.MOSHI}"
     const val KAPT_MOSHI = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.MOSHI}"
 
     //Coroutines
@@ -196,6 +197,7 @@ fun DependencyHandler.addLifecycleDependencies() {
 
 fun DependencyHandler.addJsonDependencies() {
     implementation(LibraryDependency.MOSHI)
+    implementation(LibraryDependency.MOSHI_KOTLIN)
     kapt(LibraryDependency.KAPT_MOSHI)
 }
 

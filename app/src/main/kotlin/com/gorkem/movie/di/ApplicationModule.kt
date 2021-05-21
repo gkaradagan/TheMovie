@@ -37,7 +37,7 @@ internal object ApplicationModule {
     @Provides
     fun provideAppCoroutineDispatchers(): AppCoroutineDispatchers = AppCoroutineDispatchers(
         io = Dispatchers.IO,
-        computation = Dispatchers.Default,
+        default = Dispatchers.Default,
         main = Dispatchers.Main
     )
 }

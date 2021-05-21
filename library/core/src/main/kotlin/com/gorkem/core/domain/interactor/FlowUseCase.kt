@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
+import timber.log.Timber
 
 /**
  * Executes business logic in its execute method and keep posting updates to the result as
@@ -30,7 +31,10 @@ import kotlinx.coroutines.flow.flowOn
 abstract class FlowUseCase<in P, R> {
     operator fun invoke(parameters: P): Flow<Result<R>> = execute(parameters)
         .distinctUntilChanged()
-        .catch { e -> emit(Result.Error(Exception(e))) }
+        .catch { e ->
+            Timber.e("FlowUseCase catch : $e")
+            emit(Result.Error(Exception(e)))
+        }
         .flowOn(dispatcher)
 
     abstract val dispatcher: CoroutineDispatcher

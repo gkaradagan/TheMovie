@@ -4,6 +4,7 @@ import com.gorkem.core.data.interceptor.TheMovieInterceptor
 import com.gorkem.core.di.qualifier.ApiUrl
 import com.gorkem.core.di.qualifier.Debug
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +23,7 @@ internal object NetworkModule {
     @Provides
     fun provideHttpLoggingInterceptor(@Debug isDebug: Boolean): HttpLoggingInterceptor =
         HttpLoggingInterceptor { message ->
-            Timber.tag("TheMoview OkHttp").d(message)
+            Timber.tag("TheMovie OkHttp").d(message)
         }.apply {
             level =
                 if (isDebug) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
@@ -46,7 +47,9 @@ internal object NetworkModule {
 
     @Singleton
     @Provides
-    fun providesMoshi(): Moshi = Moshi.Builder().build()
+    fun providesMoshi(): Moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
     @Provides
     @Singleton

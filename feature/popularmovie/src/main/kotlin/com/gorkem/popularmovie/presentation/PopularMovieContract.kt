@@ -15,7 +15,7 @@
  */
 package com.gorkem.popularmovie.presentation
 
-import com.gorkem.common.domain.model.ProgramUIModel
+import com.gorkem.common.ui.ProgramUIModel
 import com.gorkem.core.presentation.arch.ViewEffect
 import com.gorkem.core.presentation.arch.ViewIntent
 import com.gorkem.core.presentation.arch.ViewState

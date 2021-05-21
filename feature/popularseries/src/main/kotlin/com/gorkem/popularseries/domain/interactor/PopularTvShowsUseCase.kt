@@ -1,7 +1,6 @@
 package com.gorkem.popularseries.domain.interactor
 
-import com.gorkem.common.data.model.mapToProgramUIModel
-import com.gorkem.common.domain.model.ProgramUIModel
+import com.gorkem.common.ui.ProgramUIModel
 import com.gorkem.core.domain.interactor.FlowUseCase
 import com.gorkem.core.domain.model.Result
 import com.gorkem.core.util.AppCoroutineDispatchers
@@ -22,6 +21,6 @@ class PopularTvShowsUseCase(
     override fun execute(parameters: Int): Flow<Result<List<ProgramUIModel>>> = flow {
         emit(Result.Loading)
         val popularMovies = repository.getPopular(parameters)
-        emit(Result.Success(popularMovies.results.map { it.mapToProgramUIModel() }))
+        // emit(Result.Success(popularMovies.results.map { it.mapToUIModel() }))
     }
 }

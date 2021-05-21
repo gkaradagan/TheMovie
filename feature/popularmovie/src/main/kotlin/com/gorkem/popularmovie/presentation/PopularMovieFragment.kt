@@ -52,7 +52,10 @@ class PopularMovieFragment :
         viewModel.sendIntent(PopularMovieIntent.LoadPopularMovies)
     }
 
-    override fun renderUI(state: PopularMovieState) = Unit
+    override fun renderUI(state: PopularMovieState) {
 
-    override fun handleEffect(effect: PopularMovieEffect) = Unit
+    }
+
+    override fun handleEffect(effect: PopularMovieEffect) {
+    }
 }

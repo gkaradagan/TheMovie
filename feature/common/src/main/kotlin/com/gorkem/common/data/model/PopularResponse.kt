@@ -1,13 +1,16 @@
 package com.gorkem.common.data.model
 
-import com.gorkem.common.domain.model.ProgramUIModel
+import com.gorkem.common.domain.model.GenreDomainModel
+import com.gorkem.common.ui.ProgramUIModel
 import com.squareup.moshi.Json
 
 data class PopularResponse(
     val page: Int,
     val results: List<ProgramResponseModel>,
-    val total_pages: Int,
-    val total_results: Int,
+    @Json(name = "total_pages")
+    val totalPages: Int,
+    @Json(name = "total_results")
+    val totalResults: Int,
 )
 
 data class ProgramResponseModel(
@@ -35,19 +38,21 @@ data class ProgramResponseModel(
     val voteCount: Int,
 )
 
-fun ProgramResponseModel.mapToProgramUIModel(): ProgramUIModel = ProgramUIModel(
-    adult = this.adult,
-    backdropPath = this.backdropPath,
-    genreIds = this.genreIds,
-    id = this.id,
-    originalLanguage = this.originalLanguage,
-    originalTitle = this.originalTitle,
-    overview = this.overview,
-    popularity = this.popularity,
-    posterPath = this.posterPath,
-    releaseDate = this.releaseDate,
-    title = this.title,
-    video = this.video,
-    voteAverage = this.voteAverage,
-    voteCount = this.voteCount
-)
+fun ProgramResponseModel.mapToUIModel(genreList: List<GenreDomainModel>): ProgramUIModel =
+    ProgramUIModel(
+        adult = this.adult,
+        backdropPath = this.backdropPath,
+        genreList = this.genreIds.map { id -> genreList.first { it.id == id } }
+            .map { it.name },
+        id = this.id,
+        originalLanguage = this.originalLanguage,
+        originalTitle = this.originalTitle,
+        overview = this.overview,
+        popularity = this.popularity,
+        posterPath = this.posterPath,
+        releaseDate = this.releaseDate,
+        title = this.title,
+        video = this.video,
+        voteAverage = this.voteAverage,
+        voteCount = this.voteCount
+    )

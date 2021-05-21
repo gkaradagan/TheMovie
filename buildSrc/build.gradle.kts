@@ -12,7 +12,7 @@ repositories {
 
 object PluginVersions {
     // When you change it, you should change GRADLE_VERSION on Versions
-    const val GRADLE_VERSION = "4.2.0"
+    const val GRADLE_VERSION = "4.2.1"
 
     // When you change it, you should change KOTLIN_VERSION on Versions
     const val KOTLIN_VERSION = "1.5.0"

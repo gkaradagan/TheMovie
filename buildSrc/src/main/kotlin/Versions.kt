@@ -1,7 +1,7 @@
 object Versions {
 
     // When you change it, you should change GRADLE_VERSION on buildSrc build.gradle.kts
-    const val GRADLE_VERSION = "4.2.0"
+    const val GRADLE_VERSION = "4.2.1"
 
     // When you change it, you should change KOTLIN_VERSION on buildSrc build.gradle.kts
     const val KOTLIN_VERSION = "1.5.0"
@@ -45,7 +45,7 @@ object Versions {
     const val RETROFIT = "2.9.0"
 
     //Json
-    const val MOSHI = "1.11.0"
+    const val MOSHI = "1.12.0"
 
     //Coroutines
     const val COROUTINES = "1.4.3"

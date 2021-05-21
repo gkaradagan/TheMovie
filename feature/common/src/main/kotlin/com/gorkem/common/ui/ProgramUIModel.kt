@@ -1,9 +1,9 @@
-package com.gorkem.common.domain.model
+package com.gorkem.common.ui
 
 data class ProgramUIModel(
     val adult: Boolean,
     val backdropPath: String?,
-    val genreIds: List<Int>,
+    val genreList: List<String>,
     val id: Int,
     val originalLanguage: String,
     val originalTitle: String,
