@@ -28,6 +28,7 @@ plugins {
 val javaVersion: JavaVersion by extra { JavaVersion.VERSION_1_8 }
 val apiKey: String = gradleLocalProperties(rootDir).getProperty("api.key")
 val apiUrl: String = project.property("api.url") as String
+val apiImageUrl: String = project.property("api.image.url") as String
 
 android {
     compileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
@@ -42,6 +43,7 @@ android {
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
         buildConfigField("String", "API_KEY", apiKey)
         buildConfigField("String", "API_URL", apiUrl)
+        buildConfigField("String", "API_IMAGE_URL", apiImageUrl)
     }
 
     buildTypes {

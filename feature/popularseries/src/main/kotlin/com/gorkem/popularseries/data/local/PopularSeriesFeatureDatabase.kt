@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gorkem.core.di.qualifier
+package com.gorkem.popularseries.data.local
 
-import javax.inject.Qualifier
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.gorkem.popularseries.data.local.dao.TvShowGenreDao
+import com.gorkem.popularseries.data.local.entity.TvShowGenreEntity
 
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class BuildType
+@Database(entities = [TvShowGenreEntity::class], version = 1)
+abstract class PopularSeriesFeatureDatabase : RoomDatabase() {
+    abstract fun tvShowGenreDao(): TvShowGenreDao
+}

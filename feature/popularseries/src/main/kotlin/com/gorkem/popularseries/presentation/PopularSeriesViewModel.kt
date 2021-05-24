@@ -18,7 +18,9 @@ package com.gorkem.popularseries.presentation
 import androidx.lifecycle.viewModelScope
 import com.gorkem.core.domain.model.Result
 import com.gorkem.core.presentation.BaseViewModel
+import com.gorkem.core.util.languageTag
 import com.gorkem.popularseries.domain.interactor.PopularTvShowsUseCase
+import com.gorkem.popularseries.domain.interactor.PopularTvShowsUseCase.PopularTvShowsUseCaseParameter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -29,7 +31,7 @@ class PopularSeriesViewModel @Inject constructor(private val popularTvShowsUseCa
     BaseViewModel<PopularSeriesState, PopularSeriesIntent, PopularSeriesEffect>() {
 
     override fun initialState(): PopularSeriesState = PopularSeriesState(
-        isLoading = false,
+        isLoading = true,
         mutableListOf()
     )
 
@@ -37,11 +39,21 @@ class PopularSeriesViewModel @Inject constructor(private val popularTvShowsUseCa
         when (intent) {
             PopularSeriesIntent.LoadPopularTvShows -> {
                 viewModelScope.launch {
-                    popularTvShowsUseCase.invoke(1).collect { result ->
+                    popularTvShowsUseCase.invoke(
+                        PopularTvShowsUseCaseParameter(
+                            1,
+                            languageTag()
+                        )
+                    ).collect { result ->
                         when (result) {
                             Result.Loading -> setState { copy(isLoading = true) }
                             is Result.Success -> {
-                                setState { copy(isLoading = false, programList = result.data) }
+                                setState {
+                                    copy(
+                                        isLoading = false,
+                                        programList = result.data.results
+                                    )
+                                }
                             }
                             is Result.Error -> {
                                 sendEffect { PopularSeriesEffect.ShowErrorSnackBar }

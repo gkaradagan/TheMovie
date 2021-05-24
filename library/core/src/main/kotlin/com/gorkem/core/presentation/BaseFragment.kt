@@ -43,7 +43,7 @@ abstract class BaseFragment<
     private var _binding: BINDING? = null
 
     // This property is only valid between onCreateView and
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     val viewModel: VM by lazy { viewModel() }
 

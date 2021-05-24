@@ -13,10 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gorkem.core.di.qualifier
+package com.gorkem.popularseries.data.local.dao
 
-import javax.inject.Qualifier
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.gorkem.popularseries.data.local.entity.TvShowGenreEntity
 
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class BuildType
+@Dao
+interface TvShowGenreDao {
+
+    @Query("SELECT * FROM tv_show_genre where languageCode = :languageCode")
+    fun getAllGenre(languageCode: String): List<TvShowGenreEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertGenre(list: List<TvShowGenreEntity>)
+}

@@ -1,5 +1,3 @@
-import commons.implementation
-
 /*
  * Copyright 2020 Görkem Karadoğan
  *
@@ -15,6 +13,8 @@ import commons.implementation
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import commons.implementation
+
 plugins {
     id(GradlePluginId.COMMON_ANDROID_LIBRARY)
     id(GradlePluginId.KOTLIN_KAPT)
@@ -31,6 +31,8 @@ dependencies {
     implementation(LibraryDependency.ANDROIDX_FRAGMENT_KTX)
 
     implementation(LibraryDependency.ANDROIDX_DATASTORE)
+
+    implementation(LibraryDependency.COIL)
 
     addLifecycleDependencies()
 

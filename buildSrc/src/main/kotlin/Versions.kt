@@ -24,12 +24,16 @@ object Versions {
     const val ANDROIDX_NAVIGATION_COMPONENT = "2.3.5"
     const val ANDROIDX_FRAGMENT_KTX = "1.3.2"
     const val ANDROIDX_DATASTORE = "1.0.0-beta01"
+    const val ANDROIDX_PAGING = "3.0.0"
 
     //Lifecycle
     const val LIFECYCLE = "2.3.1"
 
     //Room
     const val ROOM = "2.2.5"
+
+    //Coil
+    const val COIL = "1.2.1"
 
     //Material
     const val MATERIAL = "1.3.0"

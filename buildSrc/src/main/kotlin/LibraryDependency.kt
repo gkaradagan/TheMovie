@@ -27,6 +27,8 @@ object LibraryDependency {
         "androidx.navigation:navigation-fragment-ktx:${Versions.ANDROIDX_NAVIGATION_COMPONENT}"
     const val ANDROIDX_NAVIGATION_UI =
         "androidx.navigation:navigation-ui-ktx:${Versions.ANDROIDX_NAVIGATION_COMPONENT}"
+    const val ANDROIDX_PAGING =
+        "androidx.paging:paging-runtime:${Versions.ANDROIDX_PAGING}"
 
     //Fragment
     const val ANDROIDX_FRAGMENT_KTX =
@@ -64,6 +66,9 @@ object LibraryDependency {
 
     //Material
     const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
+
+    //Coil
+    const val COIL = "io.coil-kt:coil:${Versions.COIL}"
 
     //Detekt
     const val DETEKT_API = "io.gitlab.arturbosch.detekt:detekt-api:${Versions.DETEKT_INTERNAL}"
@@ -124,7 +129,7 @@ object TestDependencies {
     //Navigation Component
     const val ANDROIDX_NAVIGATION_TESTING =
         "androidx.navigation:navigation-testing:${Versions.ANDROIDX_NAVIGATION_COMPONENT}"
-    
+
     //OkHttp Mock WebServer
     const val OKHTTP_MOCK_WEB_SERVER = "com.squareup.okhttp3:mockwebserver:${Versions.OKHTTP}"
 

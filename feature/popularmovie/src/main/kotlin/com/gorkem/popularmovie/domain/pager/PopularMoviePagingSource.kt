@@ -13,10 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gorkem.core.di.qualifier
+package com.gorkem.popularmovie.domain.pager
 
-import javax.inject.Qualifier
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class BuildType
+class PopularMoviePagingSource

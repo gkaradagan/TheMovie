@@ -18,6 +18,6 @@ plugins {
 }
 
 dependencies {
-
     addNetworkDependencies()
+    addRoomDependencies()
 }

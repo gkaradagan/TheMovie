@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gorkem.popularmovie.data.local.entity
+package com.gorkem.popularseries.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.gorkem.common.data.model.GenreResponseModel
 import com.gorkem.common.domain.model.GenreDomainModel
 
-@Entity(tableName = "movie_genre")
-data class MovieGenreEntity(@PrimaryKey val id: Int, val name: String, val languageCode: String)
+@Entity(tableName = "tv_show_genre")
+data class TvShowGenreEntity(@PrimaryKey val id: Int, val name: String, val languageCode: String)
 
-fun MovieGenreEntity.mapToDomainModel() = GenreDomainModel(
+fun TvShowGenreEntity.mapToDomainModel() = GenreDomainModel(
     id = this.id,
     name = this.name
 )
 
-fun GenreResponseModel.mapToEntityModel(languageCode: String) = MovieGenreEntity(
+fun GenreResponseModel.mapToEntityModel(languageCode: String) = TvShowGenreEntity(
     id = this.id,
     name = this.name,
     languageCode = languageCode

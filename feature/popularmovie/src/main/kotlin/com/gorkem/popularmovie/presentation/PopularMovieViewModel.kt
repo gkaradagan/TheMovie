@@ -31,7 +31,7 @@ class PopularMovieViewModel @Inject constructor(private val popularMoviesUseCase
     BaseViewModel<PopularMovieState, PopularMovieIntent, PopularMovieEffect>() {
 
     override fun initialState(): PopularMovieState = PopularMovieState(
-        isLoading = false,
+        isLoading = true,
         mutableListOf()
     )
 
@@ -48,7 +48,12 @@ class PopularMovieViewModel @Inject constructor(private val popularMoviesUseCase
                         when (result) {
                             Result.Loading -> setState { copy(isLoading = true) }
                             is Result.Success -> {
-                                setState { copy(isLoading = false, programList = result.data) }
+                                setState {
+                                    copy(
+                                        isLoading = false,
+                                        programList = result.data.results
+                                    )
+                                }
                             }
                             is Result.Error -> {
                                 sendEffect { PopularMovieEffect.ShowErrorSnackBar }
