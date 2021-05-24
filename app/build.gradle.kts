@@ -97,7 +97,6 @@ android {
 
 dependencies {
     implementation(project(ModuleDependency.CORE))
-    implementation(project(ModuleDependency.NAVIGATION))
 
     implementation(project(ModuleDependency.FEATURE_MOVIE))
     implementation(project(ModuleDependency.FEATURE_SERIES))

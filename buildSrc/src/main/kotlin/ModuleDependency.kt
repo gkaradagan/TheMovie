@@ -4,10 +4,9 @@ import kotlin.reflect.full.memberProperties
 @Suppress("unused")
 object ModuleDependency {
     // All consts are accessed via reflection
+    const val CORE = ":library:core"
     const val APP = ":app"
     const val COMMON = ":feature:common"
-    const val CORE = ":library:core"
-    const val NAVIGATION = ":library:navigation"
 
     const val FEATURE_MOVIE = ":feature:popularmovie"
     const val FEATURE_SERIES = ":feature:popularseries"

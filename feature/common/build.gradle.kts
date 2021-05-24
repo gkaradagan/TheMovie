@@ -18,6 +18,8 @@ import commons.implementation
 plugins {
     id(GradlePluginId.COMMON_ANDROID_LIBRARY)
     id(GradlePluginId.HILT)
+    id(GradlePluginId.QUADRANT)
+    id(GradlePluginId.SAFE_ARGS)
 }
 
 dependencies {
@@ -34,6 +36,8 @@ dependencies {
     implementation(LibraryDependency.COIL)
 
     addLifecycleDependencies()
+
+    addNavigationComponent()
 
     addHilt()
 
