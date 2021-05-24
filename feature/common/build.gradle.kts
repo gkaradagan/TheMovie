@@ -17,7 +17,6 @@ import commons.implementation
 
 plugins {
     id(GradlePluginId.COMMON_ANDROID_LIBRARY)
-    id(GradlePluginId.KOTLIN_KAPT)
     id(GradlePluginId.HILT)
 }
 

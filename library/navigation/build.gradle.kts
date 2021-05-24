@@ -1,3 +1,5 @@
+import commons.implementation
+
 /*
  * Copyright 2020 Görkem Karadoğan
  *
@@ -21,4 +23,5 @@ plugins {
 
 dependencies {
     addNavigationComponent()
+    implementation(project(ModuleDependency.COMMON))
 }
