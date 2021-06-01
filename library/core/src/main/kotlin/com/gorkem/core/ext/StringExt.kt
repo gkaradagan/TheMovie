@@ -49,7 +49,7 @@ fun String.isNumeric(): Boolean {
 /**
  * Extension method to check String equalsIgnoreCase
  */
-fun String.equalsIgnoreCase(other: String) = this.toLowerCase().contentEquals(other.toLowerCase())
+fun String.equalsIgnoreCase(other: String) = this.lowercase().contentEquals(other.lowercase())
 
 /**
  * Extension method to get encrypted string.

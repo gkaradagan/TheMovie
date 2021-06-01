@@ -20,12 +20,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import com.gorkem.core.presentation.arch.ViewEffect
 import com.gorkem.core.presentation.arch.ViewIntent
 import com.gorkem.core.presentation.arch.ViewState
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -37,8 +38,6 @@ abstract class BaseFragment<
     VM : BaseViewModel<STATE, INTENT, EFFECT>,
     > :
     Fragment() {
-
-    private var uiStateJob: Job? = null
 
     private var _binding: BINDING? = null
 
@@ -55,22 +54,29 @@ abstract class BaseFragment<
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         _binding = getViewBinding(inflater, container)
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        // Start collecting when the View is visible
-        // https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#livedata
-        uiStateJob = lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                renderUI(state)
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-            viewModel.effect.collect { effect ->
-                handleEffect(effect)
+        // Create a new coroutine since repeatOnLifecycle is a suspend function
+        lifecycleScope.launch {
+            // The block passed to repeatOnLifecycle is executed when the lifecycle
+            // is at least STARTED and is cancelled when the lifecycle is STOPPED.
+            // It automatically restarts the block when the lifecycle is STARTED again.
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Safely collect from flow when the lifecycle is STARTED
+                // and stops collection when the lifecycle is STOPPED
+                viewModel.state.collect { state ->
+                    renderUI(state)
+                }
+
+                viewModel.effect.collect { effect ->
+                    handleEffect(effect)
+                }
             }
         }
     }
@@ -78,12 +84,6 @@ abstract class BaseFragment<
     abstract fun renderUI(state: STATE)
 
     abstract fun handleEffect(effect: EFFECT)
-
-    override fun onStop() {
-        // Stop collecting when the View goes to the background
-        uiStateJob?.cancel()
-        super.onStop()
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

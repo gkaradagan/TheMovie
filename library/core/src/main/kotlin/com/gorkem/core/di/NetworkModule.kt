@@ -15,14 +15,18 @@
  */
 package com.gorkem.core.di
 
+import android.content.Context
 import com.gorkem.core.data.interceptor.TheMovieInterceptor
 import com.gorkem.core.di.qualifier.ApiUrl
 import com.gorkem.core.di.qualifier.Debug
+import com.gorkem.core.util.NetworkStatusTracker
+import com.gorkem.core.util.NetworkStatusTrackerImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -34,6 +38,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkModule {
+
+    @Provides
+    fun provideNetworkStatusTracker(@ApplicationContext context: Context): NetworkStatusTracker =
+        NetworkStatusTrackerImpl(context)
 
     @Provides
     fun provideHttpLoggingInterceptor(@Debug isDebug: Boolean): HttpLoggingInterceptor =

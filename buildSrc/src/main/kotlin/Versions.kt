@@ -27,7 +27,7 @@ object Versions {
     const val ANDROIDX_PAGING = "3.0.0"
 
     //Lifecycle
-    const val LIFECYCLE = "2.3.1"
+    const val LIFECYCLE = "2.4.0-alpha01"
 
     //Room
     const val ROOM = "2.2.5"

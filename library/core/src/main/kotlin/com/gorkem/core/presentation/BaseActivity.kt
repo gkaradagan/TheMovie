@@ -17,23 +17,24 @@ package com.gorkem.core.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import com.gorkem.core.presentation.arch.ViewEffect
 import com.gorkem.core.presentation.arch.ViewIntent
 import com.gorkem.core.presentation.arch.ViewState
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-abstract class BaseActivity<STATE : ViewState,
+abstract class BaseActivity<
+    STATE : ViewState,
     INTENT : ViewIntent,
     EFFECT : ViewEffect,
     BINDING : ViewBinding,
-    VM : BaseViewModel<STATE, INTENT, EFFECT>> :
+    VM : BaseViewModel<STATE, INTENT, EFFECT>,
+    > :
     AppCompatActivity() {
-
-    private var uiStateJob: Job? = null
 
     lateinit var binding: BINDING
 
@@ -47,19 +48,22 @@ abstract class BaseActivity<STATE : ViewState,
         super.onCreate(savedInstanceState)
         binding = getViewBinding()
         setContentView(binding.root)
-    }
 
-    override fun onStart() {
-        super.onStart()
-        // Start collecting when the View is visible
-        // https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#livedata
-        uiStateJob = lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                renderUI(state)
-            }
+        // Create a new coroutine since repeatOnLifecycle is a suspend function
+        lifecycleScope.launch {
+            // The block passed to repeatOnLifecycle is executed when the lifecycle
+            // is at least STARTED and is cancelled when the lifecycle is STOPPED.
+            // It automatically restarts the block when the lifecycle is STARTED again.
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                // Safely collect from flow when the lifecycle is STARTED
+                // and stops collection when the lifecycle is STOPPED
+                viewModel.state.collect { state ->
+                    renderUI(state)
+                }
 
-            viewModel.effect.collect { effect ->
-                handleEffect(effect)
+                viewModel.effect.collect { effect ->
+                    handleEffect(effect)
+                }
             }
         }
     }
@@ -67,10 +71,4 @@ abstract class BaseActivity<STATE : ViewState,
     abstract fun renderUI(state: STATE)
 
     abstract fun handleEffect(effect: EFFECT)
-
-    override fun onStop() {
-        // Stop collecting when the View goes to the background
-        uiStateJob?.cancel()
-        super.onStop()
-    }
 }
