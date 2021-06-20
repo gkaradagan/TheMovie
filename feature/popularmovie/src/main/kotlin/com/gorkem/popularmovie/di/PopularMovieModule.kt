@@ -17,6 +17,7 @@ package com.gorkem.popularmovie.di
 
 import android.content.Context
 import androidx.room.Room
+import com.gorkem.common.data.repository.FavouriteProgramRepository
 import com.gorkem.core.util.AppCoroutineDispatchers
 import com.gorkem.popularmovie.data.api.MovieService
 import com.gorkem.popularmovie.data.local.PopularMovieFeatureDatabase
@@ -31,19 +32,16 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class PopularMovieSingletonModule {
 
     @Provides
-    @Singleton
     fun provideMovieService(retrofit: Retrofit): MovieService =
         retrofit.create(MovieService::class.java)
 
     @Provides
-    @Singleton
     fun providePopularMovieFeatureDatabase(@ApplicationContext appContext: Context): PopularMovieFeatureDatabase =
         Room.databaseBuilder(
             appContext,
@@ -64,8 +62,9 @@ class PopularMovieViewModule {
     fun providePopularMovieUseCase(
         appCoroutineDispatchers: AppCoroutineDispatchers,
         api: MovieRepository,
+        favouriteProgramRepository: FavouriteProgramRepository,
     ): PopularMoviesUseCase =
-        PopularMoviesUseCase(appCoroutineDispatchers, api)
+        PopularMoviesUseCase(appCoroutineDispatchers, api, favouriteProgramRepository)
 
     @Provides
     fun provideMovieRepository(

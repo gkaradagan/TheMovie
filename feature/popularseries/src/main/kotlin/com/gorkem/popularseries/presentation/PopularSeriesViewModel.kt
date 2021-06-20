@@ -16,6 +16,8 @@
 package com.gorkem.popularseries.presentation
 
 import androidx.lifecycle.viewModelScope
+import com.gorkem.common.domain.interactor.FavouriteProgramDeleteUseCase
+import com.gorkem.common.domain.interactor.FavouriteProgramInsertUseCase
 import com.gorkem.core.domain.model.Result
 import com.gorkem.core.presentation.BaseViewModel
 import com.gorkem.core.util.languageTag
@@ -27,7 +29,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PopularSeriesViewModel @Inject constructor(private val popularTvShowsUseCase: PopularTvShowsUseCase) :
+class PopularSeriesViewModel @Inject constructor(
+    private val popularTvShowsUseCase: PopularTvShowsUseCase,
+    private val favouriteProgramInsertUseCase: FavouriteProgramInsertUseCase,
+    private val favouriteProgramDeleteUseCase: FavouriteProgramDeleteUseCase
+) :
     BaseViewModel<PopularSeriesState, PopularSeriesIntent, PopularSeriesEffect>() {
 
     override fun initialState(): PopularSeriesState = PopularSeriesState(
@@ -59,6 +65,23 @@ class PopularSeriesViewModel @Inject constructor(private val popularTvShowsUseCa
                                 sendEffect { PopularSeriesEffect.ShowErrorSnackBar }
                             }
                         }
+                    }
+                }
+            }
+            is PopularSeriesIntent.UpdateFavourite -> {
+                viewModelScope.launch {
+                    if (intent.program.isFavourite) {
+                        favouriteProgramInsertUseCase.invoke(
+                            FavouriteProgramInsertUseCase.Parameter(
+                                intent.program
+                            )
+                        )
+                    } else {
+                        favouriteProgramDeleteUseCase.invoke(
+                            FavouriteProgramDeleteUseCase.Parameter(
+                                intent.program.id
+                            )
+                        )
                     }
                 }
             }

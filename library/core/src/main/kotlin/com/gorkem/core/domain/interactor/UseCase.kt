@@ -33,20 +33,18 @@ abstract class UseCase<in P, R> {
      */
 
     @Suppress("detekt.TooGenericExceptionCaught")
-    suspend operator fun invoke(parameters: P): Result<R> {
-        return try {
-            // Moving all use case's executions to the injected dispatcher
-            // In production code, this is usually the Default dispatcher (background thread)
-            // In tests, this becomes a TestCoroutineDispatcher
-            withContext(dispatcher) {
-                execute(parameters).let {
-                    Result.Success(it)
-                }
+    suspend operator fun invoke(parameters: P): Result<R> = try {
+        // Moving all use case's executions to the injected dispatcher
+        // In production code, this is usually the Default dispatcher (background thread)
+        // In tests, this becomes a TestCoroutineDispatcher
+        withContext(dispatcher) {
+            execute(parameters).let {
+                Result.Success(it)
             }
-        } catch (e: Exception) {
-            Timber.d(e)
-            Result.Error(e)
         }
+    } catch (e: Exception) {
+        Timber.d(e)
+        Result.Error(e)
     }
 
     abstract val dispatcher: CoroutineDispatcher

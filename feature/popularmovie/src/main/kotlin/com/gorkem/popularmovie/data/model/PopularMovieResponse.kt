@@ -54,14 +54,21 @@ data class MovieResponseModel(
     val voteCount: Int,
 )
 
-fun PopularMovieResponse.mapToUIModel(genreList: List<GenreDomainModel>): PopularUIModel =
+fun PopularMovieResponse.mapToUIModel(
+    genreList: List<GenreDomainModel>,
+    favouriteList: List<ProgramUIModel>,
+): PopularUIModel =
     PopularUIModel(
         page = this.page,
-        results = this.results.filter { it.posterPath != null }.map { it.mapToUIModel(genreList) },
+        results = this.results.filter { it.posterPath != null }
+            .map { it.mapToUIModel(genreList, favouriteList) },
         totalPages = this.totalPages
     )
 
-fun MovieResponseModel.mapToUIModel(genreList: List<GenreDomainModel>): ProgramUIModel =
+fun MovieResponseModel.mapToUIModel(
+    genreList: List<GenreDomainModel>,
+    favouriteList: List<ProgramUIModel>,
+): ProgramUIModel =
     ProgramUIModel(
         genreList = this.genreIds.map { id -> genreList.first { it.id == id } }
             .map { it.name },
@@ -69,5 +76,8 @@ fun MovieResponseModel.mapToUIModel(genreList: List<GenreDomainModel>): ProgramU
         posterPath = this.posterPath,
         releaseDate = this.releaseDate,
         title = this.title,
-        voteAverage = this.voteAverage,
-    )
+        voteAverage = this.voteAverage
+    ).also {
+        it.isFavourite =
+            favouriteList.find { favourite -> favourite.id == it.id }?.let { true } ?: false
+    }

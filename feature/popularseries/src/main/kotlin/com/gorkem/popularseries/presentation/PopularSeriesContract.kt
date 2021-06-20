@@ -31,4 +31,5 @@ sealed class PopularSeriesEffect : ViewEffect {
 
 sealed class PopularSeriesIntent : ViewIntent {
     object LoadPopularTvShows : PopularSeriesIntent()
+    data class UpdateFavourite(val program: ProgramUIModel) : PopularSeriesIntent()
 }

@@ -15,8 +15,10 @@
  */
 package com.gorkem.popularmovie.domain.interactor
 
+import com.gorkem.common.data.repository.FavouriteProgramRepository
 import com.gorkem.common.domain.model.GenreDomainModel
 import com.gorkem.common.ui.PopularUIModel
+import com.gorkem.common.ui.ProgramUIModel
 import com.gorkem.core.domain.interactor.FlowUseCase
 import com.gorkem.core.domain.model.Result
 import com.gorkem.core.util.AppCoroutineDispatchers
@@ -33,6 +35,7 @@ import kotlinx.coroutines.flow.flow
 class PopularMoviesUseCase(
     private val appCoroutineDispatchers: AppCoroutineDispatchers,
     private val repository: MovieRepository,
+    private val favouriteProgramRepository: FavouriteProgramRepository
 ) :
     FlowUseCase<PopularMoviesUseCase.PopularMovieUseCaseParameter, PopularUIModel>() {
 
@@ -44,9 +47,10 @@ class PopularMoviesUseCase(
             emit(Result.Loading)
             combine(
                 repository.getGenreList(parameters.languageCode),
-                repository.getPopular(parameters.page)
-            ) { genreList: List<GenreDomainModel>, popular: PopularMovieResponse ->
-                Result.Success(popular.mapToUIModel(genreList))
+                repository.getPopular(parameters.page),
+                favouriteProgramRepository.getFavouriteList()
+            ) { genreList: List<GenreDomainModel>, popular: PopularMovieResponse, favouriteList: List<ProgramUIModel> ->
+                Result.Success(popular.mapToUIModel(genreList, favouriteList))
             }.conflate().collect {
                 emit(it)
             }

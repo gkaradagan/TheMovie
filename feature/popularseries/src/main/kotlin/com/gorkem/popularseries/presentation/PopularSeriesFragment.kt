@@ -48,7 +48,11 @@ class PopularSeriesFragment :
     @Inject
     lateinit var imageUrl: String
 
-    private val movieAdapter by lazy { ProgramAdapter("${imageUrl}w500") }
+    private val movieAdapter by lazy {
+        ProgramAdapter("${imageUrl}w500") {
+            viewModel.handleIntent(PopularSeriesIntent.UpdateFavourite(it))
+        }
+    }
 
     override fun getViewBinding(
         inflater: LayoutInflater,

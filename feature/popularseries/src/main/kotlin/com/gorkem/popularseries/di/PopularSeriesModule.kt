@@ -17,6 +17,7 @@ package com.gorkem.popularseries.di
 
 import android.content.Context
 import androidx.room.Room
+import com.gorkem.common.data.repository.FavouriteProgramRepository
 import com.gorkem.core.util.AppCoroutineDispatchers
 import com.gorkem.popularseries.data.api.TvShowService
 import com.gorkem.popularseries.data.local.PopularSeriesFeatureDatabase
@@ -31,19 +32,16 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class PopularSeriesSingletonModule {
 
     @Provides
-    @Singleton
     fun provideTvShowService(retrofit: Retrofit): TvShowService =
         retrofit.create(TvShowService::class.java)
 
     @Provides
-    @Singleton
     fun providePopularSeriesFeatureDatabase(@ApplicationContext appContext: Context): PopularSeriesFeatureDatabase =
         Room.databaseBuilder(
             appContext,
@@ -64,8 +62,9 @@ class PopularSeriesViewModule {
     fun providePopularTvShowsUseCase(
         appCoroutineDispatchers: AppCoroutineDispatchers,
         api: TvShowRepository,
+        favouriteProgramRepository: FavouriteProgramRepository,
     ): PopularTvShowsUseCase =
-        PopularTvShowsUseCase(appCoroutineDispatchers, api)
+        PopularTvShowsUseCase(appCoroutineDispatchers, api, favouriteProgramRepository)
 
     @Provides
     fun provideTvShowRepository(

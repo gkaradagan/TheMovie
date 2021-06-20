@@ -97,6 +97,7 @@ android {
 
 dependencies {
     implementation(project(ModuleDependency.CORE))
+    implementation(project(ModuleDependency.COMMON))
 
     implementation(project(ModuleDependency.FEATURE_MOVIE))
     implementation(project(ModuleDependency.FEATURE_SERIES))
@@ -124,6 +125,8 @@ dependencies {
     addLifecycleDependencies()
 
     addNavigationComponent()
+
+    addRoomDependencies()
 
     addHilt()
 

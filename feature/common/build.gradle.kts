@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import commons.implementation
+import commons.project
 
 plugins {
     id(GradlePluginId.COMMON_ANDROID_LIBRARY)
@@ -23,6 +24,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(ModuleDependency.CORE))
     implementation(LibraryDependency.ANDROIDX_CORE_KTX)
     implementation(LibraryDependency.ANDROIDX_APPCOMPAT)
     implementation(LibraryDependency.MATERIAL)
@@ -42,6 +44,8 @@ dependencies {
     addHilt()
 
     addNetworkDependencies()
+
+    addRoomDependencies()
 
     addTestDependencies()
 }

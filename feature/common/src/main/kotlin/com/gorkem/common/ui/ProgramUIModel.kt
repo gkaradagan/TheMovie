@@ -15,6 +15,8 @@
  */
 package com.gorkem.common.ui
 
+import com.gorkem.common.data.local.entity.FavouriteProgramEntity
+
 data class PopularUIModel(
     val page: Int,
     val results: List<ProgramUIModel>,
@@ -28,4 +30,15 @@ data class ProgramUIModel(
     val releaseDate: String,
     val title: String,
     val voteAverage: Double,
+) {
+    var isFavourite = false
+}
+
+fun ProgramUIModel.mapToEntity() = FavouriteProgramEntity(
+    genreList = this.genreList,
+    id = this.id,
+    posterPath = this.posterPath,
+    releaseDate = this.releaseDate,
+    title = this.title,
+    voteAverage = this.voteAverage
 )

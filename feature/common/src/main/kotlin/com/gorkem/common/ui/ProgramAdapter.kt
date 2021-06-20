@@ -22,12 +22,15 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.gorkem.common.databinding.ItemProgramRowBinding
 
-class ProgramAdapter(val imageUrl: String) :
+class ProgramAdapter(
+    val imageUrl: String,
+    val favouriteOnClick: (program: ProgramUIModel) -> Unit,
+) :
     RecyclerView.Adapter<ProgramAdapter.ProgramViewModel>() {
 
     private var itemList: List<ProgramUIModel> = mutableListOf()
 
-    class ProgramViewModel(
+    inner class ProgramViewModel(
         private val imageUrl: String,
         private val binding: ItemProgramRowBinding,
     ) :
@@ -38,7 +41,14 @@ class ProgramAdapter(val imageUrl: String) :
                 tvRate.text = item.voteAverage.toString()
                 tvName.text = item.title
                 tvDate.text = item.releaseDate
+                ivFavourite.isSelected = item.isFavourite
                 ivPoster.load("${imageUrl}${item.posterPath}")
+                flFavourite.setOnClickListener {
+                    val isFavourite = !ivFavourite.isSelected
+                    ivFavourite.isSelected = isFavourite
+                    itemList[adapterPosition].isFavourite = isFavourite
+                    favouriteOnClick.invoke(itemList[adapterPosition])
+                }
             }
         }
     }

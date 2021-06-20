@@ -31,4 +31,5 @@ sealed class PopularMovieEffect : ViewEffect {
 
 sealed class PopularMovieIntent : ViewIntent {
     object LoadPopularMovies : PopularMovieIntent()
+    data class UpdateFavourite(val program: ProgramUIModel) : PopularMovieIntent()
 }
