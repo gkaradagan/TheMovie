@@ -31,12 +31,12 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment<
-    STATE : ViewState,
-    INTENT : ViewIntent,
-    EFFECT : ViewEffect,
-    BINDING : ViewBinding,
-    VM : BaseViewModel<STATE, INTENT, EFFECT>,
-    > :
+        STATE : ViewState,
+        INTENT : ViewIntent,
+        EFFECT : ViewEffect,
+        BINDING : ViewBinding,
+        VM : BaseViewModel<STATE, INTENT, EFFECT>,
+        > :
     Fragment() {
 
     private var _binding: BINDING? = null
@@ -70,13 +70,18 @@ abstract class BaseFragment<
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // Safely collect from flow when the lifecycle is STARTED
                 // and stops collection when the lifecycle is STOPPED
-                viewModel.state.collect { state ->
-                    renderUI(state)
+                launch {
+                    viewModel.state.collect { state ->
+                        renderUI(state)
+                    }
                 }
 
-                viewModel.effect.collect { effect ->
-                    handleEffect(effect)
+                launch {
+                    viewModel.effect.collect { effect ->
+                        handleEffect(effect)
+                    }
                 }
+
             }
         }
     }

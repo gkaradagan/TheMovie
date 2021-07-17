@@ -1,10 +1,10 @@
 object Versions {
 
     // When you change it, you should change GRADLE_VERSION on buildSrc build.gradle.kts
-    const val GRADLE_VERSION = "4.2.1"
+    const val GRADLE_VERSION = "4.2.2"
 
     // When you change it, you should change KOTLIN_VERSION on buildSrc build.gradle.kts
-    const val KOTLIN_VERSION = "1.5.0"
+    const val KOTLIN_VERSION = "1.5.21"
 
     //Hilt
     const val HILT = "2.35.1"
